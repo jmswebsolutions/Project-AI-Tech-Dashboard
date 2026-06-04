@@ -1,60 +1,73 @@
-# AI & Tech Dashboard
+# React + TypeScript + Vite
 
-A modern dashboard focused on Artificial Intelligence and Technology news.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 🚀 About the Project
+Currently, two official plugins are available:
 
-AI & Tech Dashboard is a web application built to centralize technology and AI-related information in a clean and intuitive interface.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-The project aims to provide users with:
+## React Compiler
 
-* AI news
-* Technology news
-* Search functionality
-* Category filters
-* Favorites system
-* Data visualization and analytics
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🛠 Technologies
+## Expanding the ESLint configuration
 
-* React
-* TypeScript
-* Vite
-* Tailwind CSS
-* Axios
-* React Query
-* Recharts
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 📌 Planned Features
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-* [ ] Display AI news
-* [ ] Display technology news
-* [ ] Search news articles
-* [ ] Category filtering
-* [ ] Favorites system
-* [ ] Dark mode
-* [ ] Dashboard analytics
-* [ ] AI-powered news summaries
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## 📷 Screenshots
-
-Screenshots will be added as the project evolves.
-
-## ⚙️ Installation
-
-```bash
-npm install
-npm run dev
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-## 🌐 Live Demo
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-Coming soon.
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## 👨‍💻 Author
-
-Jonatan Marques
-
-Portfolio: https://jmswebsolutions.com.br/
-
-GitHub: https://github.com/jmswebsolutions
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
