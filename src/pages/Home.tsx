@@ -1,44 +1,30 @@
+import { useEffect } from "react";
+import { getTopStories } from "../services/newsApi";
+
 export function Home() {
+  useEffect(() => {
+    getTopStories().then((data) => {
+      console.log(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    getTopStories().then(async (ids) => {
+      console.log("IDs:", ids);
+
+      const response = await fetch(
+        `https://hacker-news.firebaseio.com/v0/item/${ids[0]}.json`
+      );
+
+      const story = await response.json();
+
+      console.log("Primeira notícia:", story);
+    });
+  }, []);
+
   return (
-    <main
-      style={{
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "2rem"
-      }}
-    >
+    <div>
       <h1>AI & Tech Dashboard</h1>
-
-      <input
-        type="text"
-        placeholder="Search AI news..."
-        style={{
-          width: "100%",
-          padding: "12px",
-          marginTop: "20px"
-        }}
-      />
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
-          marginTop: "30px"
-        }}
-      >
-        <div style={{ padding: "20px", border: "1px solid #334155" }}>
-          News Card 1
-        </div>
-
-        <div style={{ padding: "20px", border: "1px solid #334155" }}>
-          News Card 2
-        </div>
-
-        <div style={{ padding: "20px", border: "1px solid #334155" }}>
-          News Card 3
-        </div>
-      </div>
-    </main>
+    </div>
   );
 }
