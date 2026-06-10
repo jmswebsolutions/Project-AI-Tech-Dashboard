@@ -1,0 +1,80 @@
+.container {
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.skeleton {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.skeletonHeader {
+  height: 24px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: shimmer 2s infinite;
+}
+
+.skeletonLine1 {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: shimmer 2s 0.1s infinite;
+  width: 100%;
+}
+
+.skeletonLine2 {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: shimmer 2s 0.2s infinite;
+  width: 90%;
+}
+
+.skeletonFooter {
+  height: 32px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-hover) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: shimmer 2s 0.3s infinite;
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
