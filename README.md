@@ -2,6 +2,11 @@
 
 Um dashboard moderno e responsivo que exibe as principais histórias de tecnologia e IA do **Hacker News em tempo real**. Desenvolvido com React, TypeScript e as melhores práticas de UX/UI.
 
+## 🌐 Live Demo
+
+👉 **Acesse o projeto em produção:**  
+https://jmswebsolutions.com.br/Projeto-AI-Tech-Dashboard/
+
 ## 📋 O Que o Projeto Faz
 
 Este dashboard **agrega e exibe artigos, discussões e notícias** sobre tecnologia e inteligência artificial diretamente da [Hacker News API](https://news.ycombinator.com/api). A aplicação permite:
