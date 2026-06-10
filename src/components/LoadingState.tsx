@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './LoadingState.module.css';
 
 export function LoadingState() {

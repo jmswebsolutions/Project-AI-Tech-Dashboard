@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Story } from '../types/Story';
 import styles from './NewsCard.module.css';
 
