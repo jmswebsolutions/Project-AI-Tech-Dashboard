@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="256" height="256" rx="48" fill="#0f172a"/>
+
+  <!-- Chip -->
+  <rect x="68" y="68" width="120" height="120" rx="20"
+        fill="none"
+        stroke="url(#grad)"
+        stroke-width="12"/>
+
+  <!-- Pinos -->
+  <g stroke="#06b6d4" stroke-width="8" stroke-linecap="round">
+    <line x1="48" y1="92" x2="68" y2="92"/>
+    <line x1="48" y1="128" x2="68" y2="128"/>
+    <line x1="48" y1="164" x2="68" y2="164"/>
+
+    <line x1="188" y1="92" x2="208" y2="92"/>
+    <line x1="188" y1="128" x2="208" y2="128"/>
+    <line x1="188" y1="164" x2="208" y2="164"/>
+
+    <line x1="92" y1="48" x2="92" y2="68"/>
+    <line x1="128" y1="48" x2="128" y2="68"/>
+    <line x1="164" y1="48" x2="164" y2="68"/>
+
+    <line x1="92" y1="188" x2="92" y2="208"/>
+    <line x1="128" y1="188" x2="128" y2="208"/>
+    <line x1="164" y1="188" x2="164" y2="208"/>
+  </g>
+
+  <!-- Gráfico -->
+  <polyline
+      points="88,148 112,124 132,136 168,100"
+      fill="none"
+      stroke="#06b6d4"
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+
+  <!-- Seta -->
+  <polyline
+      points="154,100 168,100 168,114"
+      fill="none"
+      stroke="#06b6d4"
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+</svg>
