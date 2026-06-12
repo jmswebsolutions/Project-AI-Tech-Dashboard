@@ -86,6 +86,56 @@
   flex-wrap: wrap;
 }
 
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-right: var(--space-sm);
+  padding-right: var(--space-md);
+  border-right: 1px solid var(--border-primary);
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.filterBtn:hover {
+  border-color: var(--border-secondary);
+  color: var(--text-primary);
+}
+
+.filterBtn.active {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--accent-primary);
+}
+
+.filterCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: rgba(245, 158, 11, 0.15);
+  border-radius: var(--radius-lg);
+  font-size: 10px;
+  color: var(--accent-warning);
+  font-variant-numeric: tabular-nums;
+}
+
 .label {
   font-size: 12px;
   font-weight: 500;

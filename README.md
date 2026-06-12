@@ -13,6 +13,7 @@ Este dashboard **agrega e exibe artigos, discussões e notícias** sobre tecnolo
 
 - ✅ **Visualizar histórias em tempo real** - Top 30 histórias do Hacker News
 - 🔍 **Filtrar e buscar** - Procure histórias por título
+- ⭐ **Favoritos** - Salve histórias com um clique e filtre só os favoritos (persiste no navegador)
 - 📊 **Metadados completos** - Pontos, comentários, autor, data
 - 🔗 **Links diretos** - Leia o artigo original ou comente no HN
 - 📱 **Design responsivo** - Funciona perfeitamente em mobile, tablet e desktop
@@ -111,7 +112,15 @@ const { data: stories, isLoading, error, refetch } = useQuery({
 ### 🔍 Busca e Filtro
 - Busca por título em tempo real (sem debounce necessário)
 - Campo de busca com limpeza rápida (botão X)
+- Filtro **All** / **Favoritos** na toolbar
 - Mostra quantidade de resultados
+
+### ⭐ Favoritos (v2.0)
+- Botão de estrela em cada card para salvar/remover
+- Filtro dedicado para ver só histórias favoritas
+- Contador no header e na toolbar
+- Persistência automática via `localStorage`
+- Empty states específicos (sem favoritos, fora do top 30, busca sem match)
 
 ### 📊 Card de Notícia Completo
 Cada histórico exibe:
@@ -218,7 +227,8 @@ src/
 │   └── Home.tsx            # Página principal
 │
 ├── hooks/                   # Custom Hooks
-│   └── useNews.ts          # Hook para carregar histórias
+│   ├── useNews.ts          # Hook para carregar histórias
+│   └── useFavorites.ts     # Hook para favoritos (localStorage)
 │
 ├── services/               # Serviços (API)
 │   └── newsApi.ts          # Funções de API do HN
@@ -347,7 +357,7 @@ O projeto busca automaticamente:
 - [ ] Testes E2E com Playwright
 - [ ] PWA features (offline, install)
 - [ ] Dark/Light mode toggle
-- [ ] Favoritos/bookmarks
+- [x] Favoritos/bookmarks
 - [ ] Categorias de filtro (jobs, polls, etc)
 - [ ] Analytics (Sentry, Mixpanel)
 - [ ] Infinite scroll

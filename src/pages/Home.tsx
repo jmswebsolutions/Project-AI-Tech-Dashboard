@@ -6,22 +6,65 @@ import { LoadingState } from '../components/LoadingState';
 import { EmptyState } from '../components/EmptyState';
 import { ErrorState } from '../components/ErrorState';
 import { useNews } from '../hooks/useNews';
+import { useFavorites } from '../hooks/useFavorites';
 import styles from './Home.module.css';
+
+type ViewFilter = 'all' | 'favorites';
+
+function getEmptyState(
+  view: ViewFilter,
+  search: string,
+  favoriteCount: number
+): { title: string; description: string } {
+  if (view === 'favorites') {
+    if (favoriteCount === 0) {
+      return {
+        title: 'No favorites yet',
+        description: 'Click the star on any story to save it here',
+      };
+    }
+    if (search) {
+      return {
+        title: 'No favorites match',
+        description: 'Try adjusting your search term',
+      };
+    }
+    return {
+      title: 'No favorites in current list',
+      description: "Your saved stories aren't in the top 30 right now. Switch to All to browse.",
+    };
+  }
+
+  if (search) {
+    return {
+      title: 'No stories match',
+      description: 'Try adjusting your search term',
+    };
+  }
+
+  return {
+    title: 'No stories found',
+    description: 'Please try again later',
+  };
+}
 
 export function Home() {
   const { stories, loading, error, refetch } = useNews();
+  const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
   const [search, setSearch] = useState('');
+  const [view, setView] = useState<ViewFilter>('all');
 
-  const filtered = stories.filter((s) =>
-    s.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = stories
+    .filter((s) => (view === 'favorites' ? isFavorite(s.id) : true))
+    .filter((s) => s.title.toLowerCase().includes(search.toLowerCase()));
+
+  const emptyState = getEmptyState(view, search, favoriteCount);
+  const showToolbar = !loading && !error;
 
   return (
     <div className={styles.root}>
-      {/* Header */}
-      <Header />
+      <Header favoriteCount={favoriteCount} />
 
-      {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.container}>
           <div className={styles.heroContent}>
@@ -42,19 +85,50 @@ export function Home() {
         </div>
       </section>
 
-      {/* Toolbar */}
-      {!loading && !error && stories.length > 0 && (
+      {showToolbar && (
         <div className={styles.toolbar}>
           <div className={styles.container}>
             <div className={styles.toolbarContent}>
-              <span className={styles.label}>Showing</span>
-              <span className={`${styles.chip} ${!search ? styles.active : ''}`}>
-                {filtered.length} {filtered.length === 1 ? 'story' : 'stories'}
-              </span>
-              {search && (
+              <div className={styles.filterGroup}>
+                <button
+                  type="button"
+                  className={`${styles.filterBtn} ${view === 'all' ? styles.active : ''}`}
+                  onClick={() => setView('all')}
+                  aria-pressed={view === 'all'}
+                >
+                  All
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.filterBtn} ${view === 'favorites' ? styles.active : ''}`}
+                  onClick={() => setView('favorites')}
+                  aria-pressed={view === 'favorites'}
+                >
+                  Favorites
+                  {favoriteCount > 0 && (
+                    <span className={styles.filterCount}>{favoriteCount}</span>
+                  )}
+                </button>
+              </div>
+
+              {stories.length > 0 && (
                 <>
-                  <span className={styles.label}>matching</span>
-                  <span className={`${styles.chip} ${styles.active}`}>"{search}"</span>
+                  <span className={styles.label}>Showing</span>
+                  <span className={`${styles.chip} ${!search && view === 'all' ? styles.active : ''}`}>
+                    {filtered.length} {filtered.length === 1 ? 'story' : 'stories'}
+                  </span>
+                  {view === 'favorites' && (
+                    <>
+                      <span className={styles.label}>in</span>
+                      <span className={`${styles.chip} ${styles.active}`}>Favorites</span>
+                    </>
+                  )}
+                  {search && (
+                    <>
+                      <span className={styles.label}>matching</span>
+                      <span className={`${styles.chip} ${styles.active}`}>"{search}"</span>
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -62,7 +136,6 @@ export function Home() {
         </div>
       )}
 
-      {/* Main Content */}
       <main className={styles.main}>
         <div className={styles.container}>
           {loading ? (
@@ -70,25 +143,23 @@ export function Home() {
           ) : error ? (
             <ErrorState message={error} onRetry={() => refetch()} />
           ) : filtered.length === 0 ? (
-            <EmptyState
-              title={search ? 'No stories match' : 'No stories found'}
-              description={
-                search
-                  ? 'Try adjusting your search term'
-                  : 'Please try again later'
-              }
-            />
+            <EmptyState title={emptyState.title} description={emptyState.description} />
           ) : (
             <div className={styles.grid}>
               {filtered.map((story, i) => (
-                <NewsCard key={story.id} story={story} index={i} />
+                <NewsCard
+                  key={story.id}
+                  story={story}
+                  index={i}
+                  isFavorite={isFavorite(story.id)}
+                  onToggleFavorite={toggleFavorite}
+                />
               ))}
             </div>
           )}
         </div>
       </main>
 
-      {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.container}>
           <div className={styles.footerContent}>

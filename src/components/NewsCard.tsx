@@ -4,9 +4,11 @@ import styles from './NewsCard.module.css';
 interface NewsCardProps {
   story: Story;
   index: number;
+  isFavorite?: boolean;
+  onToggleFavorite?: (storyId: number) => void;
 }
 
-export function NewsCard({ story, index }: NewsCardProps) {
+export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }: NewsCardProps) {
   const date = new Date(story.time * 1000).toLocaleDateString('en-US', {
     day: '2-digit',
     month: 'short',
@@ -30,7 +32,20 @@ export function NewsCard({ story, index }: NewsCardProps) {
   return (
     <article className={styles.card}>
       <div className={styles.header}>
-        <span className={styles.rank}>{String(index + 1).padStart(2, '0')}</span>
+        <div className={styles.headerTop}>
+          <span className={styles.rank}>{String(index + 1).padStart(2, '0')}</span>
+          {onToggleFavorite && (
+            <button
+              type="button"
+              className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteActive : ''}`}
+              onClick={() => onToggleFavorite(story.id)}
+              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+              aria-pressed={isFavorite}
+            >
+              {isFavorite ? '★' : '☆'}
+            </button>
+          )}
+        </div>
         <a
           href={articleHref || hnHref}
           target="_blank"
