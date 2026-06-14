@@ -234,6 +234,14 @@
   transform: translateX(2px);
 }
 
+.shareBtn {
+  flex: 0 0 auto;
+}
+
+.shareIcon {
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .card {
     padding: var(--space-md);

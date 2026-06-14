@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Header } from '../components/Header';
 import { SearchBar } from '../components/SearchBar';
 import { NewsCard } from '../components/NewsCard';
@@ -7,9 +7,19 @@ import { EmptyState } from '../components/EmptyState';
 import { ErrorState } from '../components/ErrorState';
 import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
+import type { StoryCategory } from '../services/newsApi';
 import styles from './Home.module.css';
 
 type ViewFilter = 'all' | 'favorites';
+
+const categoryLabels: Record<StoryCategory, string> = {
+  top: 'Top Stories',
+  new: 'New',
+  best: 'Best',
+  ask: 'Ask HN',
+  show: 'Show HN',
+  job: 'Jobs',
+};
 
 function getEmptyState(
   view: ViewFilter,
@@ -49,10 +59,29 @@ function getEmptyState(
 }
 
 export function Home() {
-  const { stories, loading, error, refetch } = useNews();
+  const [category, setCategory] = useState<StoryCategory>('top');
+  const { stories, loading, error, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } = useNews(category);
   const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const filtered = stories
     .filter((s) => (view === 'favorites' ? isFavorite(s.id) : true))
@@ -89,6 +118,19 @@ export function Home() {
         <div className={styles.toolbar}>
           <div className={styles.container}>
             <div className={styles.toolbarContent}>
+              <div className={styles.categoryGroup}>
+                {(Object.keys(categoryLabels) as StoryCategory[]).map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    className={`${styles.categoryBtn} ${category === cat ? styles.active : ''}`}
+                    onClick={() => setCategory(cat)}
+                    aria-pressed={category === cat}
+                  >
+                    {categoryLabels[cat]}
+                  </button>
+                ))}
+              </div>
               <div className={styles.filterGroup}>
                 <button
                   type="button"
@@ -155,6 +197,12 @@ export function Home() {
                   onToggleFavorite={toggleFavorite}
                 />
               ))}
+              {hasNextPage && (
+                <div ref={sentinelRef} className={styles.sentinel} />
+              )}
+              {isFetchingNextPage && (
+                <div className={styles.loadingMore}>Loading more stories...</div>
+              )}
             </div>
           )}
         </div>
@@ -173,7 +221,7 @@ export function Home() {
               <a href="https://news.ycombinator.com" target="_blank" rel="noreferrer">
                 Hacker News
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer">
+              <a href="https://github.com/jmswebsolutions/Projeto-AI-Tech-Dashboard" target="_blank" rel="noreferrer">
                 GitHub
               </a>
             </div>

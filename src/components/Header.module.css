@@ -66,6 +66,30 @@
   gap: var(--space-sm);
 }
 
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.themeToggle:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-secondary);
+  transform: scale(1.05);
+}
+
+.themeToggle:active {
+  transform: scale(0.95);
+}
+
 .favoritesBadge {
   display: inline-flex;
   align-items: center;

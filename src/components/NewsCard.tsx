@@ -29,6 +29,26 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
   const hnHref = `https://news.ycombinator.com/item?id=${story.id}`;
   const isCommentOnly = !story.url;
 
+  const handleShare = async () => {
+    const shareData = {
+      title: story.title,
+      text: `Check out this story from Hacker News: ${story.title}`,
+      url: articleHref || hnHref,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(shareData.url);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   return (
     <article className={styles.card}>
       <div className={styles.header}>
@@ -96,6 +116,16 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
         >
           {isCommentOnly ? 'View on HN' : 'Discuss'}
         </a>
+        <button
+          type="button"
+          className={`${styles.button} ${styles.shareBtn}`}
+          onClick={handleShare}
+          aria-label="Share story"
+          title="Share story"
+        >
+          Share
+          <span className={styles.shareIcon}>📤</span>
+        </button>
       </div>
     </article>
   );
