@@ -19,7 +19,7 @@ interface ContentAreaProps {
   onToggleFavorite: (id: number) => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
-  sentinelRef: React.RefObject<HTMLDivElement>;
+  sentinelRef: React.RefObject<HTMLDivElement | null>;
   onRetry: () => void;
 }
 
