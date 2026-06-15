@@ -24,6 +24,8 @@
   font-family: inherit;
   font-size: 14px;
   transition: all var(--transition-fast);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .input::placeholder {

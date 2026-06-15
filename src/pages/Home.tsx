@@ -1,62 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Header } from '../components/Header';
 import { SearchBar } from '../components/SearchBar';
-import { NewsCard } from '../components/NewsCard';
-import { LoadingState } from '../components/LoadingState';
-import { EmptyState } from '../components/EmptyState';
-import { ErrorState } from '../components/ErrorState';
+import { FilterBar } from '../components/home/FilterBar';
+import { ContentArea } from '../components/home/ContentArea';
 import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { filterStories } from '../utils/storyFilters';
 import type { StoryCategory } from '../services/newsApi';
 import styles from './Home.module.css';
 
 type ViewFilter = 'all' | 'favorites';
-
-const categoryLabels: Record<StoryCategory, string> = {
-  top: 'Top Stories',
-  new: 'New',
-  best: 'Best',
-  ask: 'Ask HN',
-  show: 'Show HN',
-  job: 'Jobs',
-};
-
-function getEmptyState(
-  view: ViewFilter,
-  search: string,
-  favoriteCount: number
-): { title: string; description: string } {
-  if (view === 'favorites') {
-    if (favoriteCount === 0) {
-      return {
-        title: 'No favorites yet',
-        description: 'Click the star on any story to save it here',
-      };
-    }
-    if (search) {
-      return {
-        title: 'No favorites match',
-        description: 'Try adjusting your search term',
-      };
-    }
-    return {
-      title: 'No favorites in current list',
-      description: "Your saved stories aren't in the top 30 right now. Switch to All to browse.",
-    };
-  }
-
-  if (search) {
-    return {
-      title: 'No stories match',
-      description: 'Try adjusting your search term',
-    };
-  }
-
-  return {
-    title: 'No stories found',
-    description: 'Please try again later',
-  };
-}
 
 export function Home() {
   const [category, setCategory] = useState<StoryCategory>('top');
@@ -64,31 +18,10 @@ export function Home() {
   const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const { sentinelRef } = useInfiniteScroll(hasNextPage, fetchNextPage, isFetchingNextPage);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sentinelRef.current) {
-      observer.observe(sentinelRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  const filtered = stories
-    .filter((s) => (view === 'favorites' ? isFavorite(s.id) : true))
-    .filter((s) => s.title.toLowerCase().includes(search.toLowerCase()));
-
-  const emptyState = getEmptyState(view, search, favoriteCount);
-  const showToolbar = !loading && !error;
+  const filtered = filterStories(stories, view, search, isFavorite);
+  const showToolbar = !error;
 
   return (
     <div className={styles.root}>
@@ -117,94 +50,34 @@ export function Home() {
       {showToolbar && (
         <div className={styles.toolbar}>
           <div className={styles.container}>
-            <div className={styles.toolbarContent}>
-              <div className={styles.categoryGroup}>
-                {(Object.keys(categoryLabels) as StoryCategory[]).map((cat) => (
-                  <button
-                    key={cat}
-                    type="button"
-                    className={`${styles.categoryBtn} ${category === cat ? styles.active : ''}`}
-                    onClick={() => setCategory(cat)}
-                    aria-pressed={category === cat}
-                  >
-                    {categoryLabels[cat]}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.filterGroup}>
-                <button
-                  type="button"
-                  className={`${styles.filterBtn} ${view === 'all' ? styles.active : ''}`}
-                  onClick={() => setView('all')}
-                  aria-pressed={view === 'all'}
-                >
-                  All
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.filterBtn} ${view === 'favorites' ? styles.active : ''}`}
-                  onClick={() => setView('favorites')}
-                  aria-pressed={view === 'favorites'}
-                >
-                  Favorites
-                  {favoriteCount > 0 && (
-                    <span className={styles.filterCount}>{favoriteCount}</span>
-                  )}
-                </button>
-              </div>
-
-              {stories.length > 0 && (
-                <>
-                  <span className={styles.label}>Showing</span>
-                  <span className={`${styles.chip} ${!search && view === 'all' ? styles.active : ''}`}>
-                    {filtered.length} {filtered.length === 1 ? 'story' : 'stories'}
-                  </span>
-                  {view === 'favorites' && (
-                    <>
-                      <span className={styles.label}>in</span>
-                      <span className={`${styles.chip} ${styles.active}`}>Favorites</span>
-                    </>
-                  )}
-                  {search && (
-                    <>
-                      <span className={styles.label}>matching</span>
-                      <span className={`${styles.chip} ${styles.active}`}>"{search}"</span>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+            <FilterBar
+              category={category}
+              view={view}
+              onCategoryChange={setCategory}
+              onViewChange={setView}
+              favoriteCount={favoriteCount}
+            />
           </div>
         </div>
       )}
 
       <main className={styles.main}>
         <div className={styles.container}>
-          {loading ? (
-            <LoadingState />
-          ) : error ? (
-            <ErrorState message={error} onRetry={() => refetch()} />
-          ) : filtered.length === 0 ? (
-            <EmptyState title={emptyState.title} description={emptyState.description} />
-          ) : (
-            <div className={styles.grid}>
-              {filtered.map((story, i) => (
-                <NewsCard
-                  key={story.id}
-                  story={story}
-                  index={i}
-                  isFavorite={isFavorite(story.id)}
-                  onToggleFavorite={toggleFavorite}
-                />
-              ))}
-              {hasNextPage && (
-                <div ref={sentinelRef} className={styles.sentinel} />
-              )}
-              {isFetchingNextPage && (
-                <div className={styles.loadingMore}>Loading more stories...</div>
-              )}
-            </div>
-          )}
+          <ContentArea
+            stories={stories}
+            filteredStories={filtered}
+            isLoading={loading}
+            error={error}
+            category={category}
+            view={view}
+            search={search}
+            isFavorite={isFavorite}
+            onToggleFavorite={toggleFavorite}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            sentinelRef={sentinelRef}
+            onRetry={() => refetch()}
+          />
         </div>
       </main>
 

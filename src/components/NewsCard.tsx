@@ -27,7 +27,6 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
 
   const articleHref = story.url || '';
   const hnHref = `https://news.ycombinator.com/item?id=${story.id}`;
-  const isCommentOnly = !story.url;
 
   const handleShare = async () => {
     const shareData = {
@@ -112,19 +111,20 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
           href={hnHref}
           target="_blank"
           rel="noreferrer"
-          className={`${styles.button} ${isCommentOnly ? styles.primary : ''}`}
+          className={`${styles.button} ${styles.discussBtn}`}
+          title={`${story.descendants ?? 0} comments`}
         >
-          {isCommentOnly ? 'View on HN' : 'Discuss'}
+          <span className={styles.icon}>💬</span>
+          {story.descendants ?? 0}
         </a>
         <button
           type="button"
-          className={`${styles.button} ${styles.shareBtn}`}
+          className={styles.iconButton}
           onClick={handleShare}
           aria-label="Share story"
           title="Share story"
         >
-          Share
-          <span className={styles.shareIcon}>📤</span>
+          📤
         </button>
       </div>
     </article>

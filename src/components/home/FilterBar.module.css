@@ -1,0 +1,23 @@
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.separator {
+  width: 1px;
+  height: 24px;
+  background: var(--border-primary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .filterBar {
+    gap: var(--space-sm);
+  }
+
+  .separator {
+    height: 20px;
+  }
+}
