@@ -6,4 +6,5 @@ export interface Story {
   url: string;
   time: number;
   descendants?: number;
+  kids?: number[];
 }

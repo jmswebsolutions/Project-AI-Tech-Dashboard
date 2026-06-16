@@ -1,0 +1,116 @@
+.commentThread {
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-lg);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.commentNode {
+  padding: var(--space-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--accent-primary);
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.author {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.time {
+  color: var(--text-tertiary);
+  font-size: 12px;
+}
+
+.toggleButton {
+  margin-left: auto;
+  padding: 4px 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.toggleButton:hover {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+.toggleButton:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.commentText {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.commentText a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.commentText a:hover {
+  text-decoration: underline;
+}
+
+.commentText code {
+  background: var(--bg-primary);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.commentText pre {
+  background: var(--bg-primary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-sm) 0;
+}
+
+.commentText pre code {
+  background: none;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .commentThread {
+    padding: var(--space-md);
+  }
+
+  .commentNode {
+    padding: var(--space-sm);
+  }
+}

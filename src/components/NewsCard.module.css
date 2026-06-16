@@ -275,6 +275,20 @@
   outline-offset: 2px;
 }
 
+.commentsLoading {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+.noComments {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .card {
     padding: var(--space-md);

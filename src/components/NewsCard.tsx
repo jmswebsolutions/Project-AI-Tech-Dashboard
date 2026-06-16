@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import type { Story } from '../types/Story';
+import type { Comment } from '../services/newsApi';
+import { CommentThread } from './CommentThread';
+import { ReaderMode } from './ReaderMode';
 import styles from './NewsCard.module.css';
 
 interface NewsCardProps {
@@ -9,6 +13,10 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }: NewsCardProps) {
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [showReaderMode, setShowReaderMode] = useState(false);
   const date = new Date(story.time * 1000).toLocaleDateString('en-US', {
     day: '2-digit',
     month: 'short',
@@ -46,6 +54,24 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
       navigator.clipboard.writeText(shareData.url);
       alert('Link copied to clipboard!');
     }
+  };
+
+  const handleToggleComments = async () => {
+    if (!showComments && comments.length === 0 && !loadingComments) {
+      setLoadingComments(true);
+      try {
+        const { getComments } = await import('../services/newsApi');
+        if (story.kids) {
+          const fetchedComments = await getComments(story.kids);
+          setComments(fetchedComments);
+        }
+      } catch (error) {
+        console.error('Failed to load comments:', error);
+      } finally {
+        setLoadingComments(false);
+      }
+    }
+    setShowComments(!showComments);
   };
 
   return (
@@ -97,26 +123,36 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
 
       <div className={styles.actions}>
         {articleHref && (
-          <a
-            href={articleHref}
-            target="_blank"
-            rel="noreferrer"
-            className={`${styles.button} ${styles.primary}`}
-          >
-            Read Article
-            <span className={styles.arrow}>→</span>
-          </a>
+          <>
+            <button
+              type="button"
+              className={`${styles.button} ${styles.primary}`}
+              onClick={() => setShowReaderMode(true)}
+            >
+              Reader Mode
+              <span className={styles.arrow}>📖</span>
+            </button>
+            <a
+              href={articleHref}
+              target="_blank"
+              rel="noreferrer"
+              className={`${styles.button} ${styles.primary}`}
+            >
+              Read Article
+              <span className={styles.arrow}>→</span>
+            </a>
+          </>
         )}
-        <a
-          href={hnHref}
-          target="_blank"
-          rel="noreferrer"
+        <button
+          type="button"
           className={`${styles.button} ${styles.discussBtn}`}
+          onClick={handleToggleComments}
           title={`${story.descendants ?? 0} comments`}
+          aria-expanded={showComments}
         >
           <span className={styles.icon}>💬</span>
           {story.descendants ?? 0}
-        </a>
+        </button>
         <button
           type="button"
           className={styles.iconButton}
@@ -127,6 +163,22 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
           📤
         </button>
       </div>
+
+      {showComments && (
+        <>
+          {loadingComments ? (
+            <div className={styles.commentsLoading}>Loading comments...</div>
+          ) : comments.length > 0 ? (
+            <CommentThread comments={comments} storyId={story.id} />
+          ) : (
+            <div className={styles.noComments}>No comments yet</div>
+          )}
+        </>
+      )}
+
+      {showReaderMode && (
+        <ReaderMode story={story} onClose={() => setShowReaderMode(false)} />
+      )}
     </article>
   );
 }
