@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { Story } from '../types/Story';
 import type { Comment } from '../services/newsApi';
 import { CommentThread } from './CommentThread';
@@ -176,9 +177,11 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
         </>
       )}
 
-      {showReaderMode && (
-        <ReaderMode story={story} onClose={() => setShowReaderMode(false)} />
-      )}
+      {showReaderMode &&
+        createPortal(
+          <ReaderMode story={story} onClose={() => setShowReaderMode(false)} />,
+          document.body
+        )}
     </article>
   );
 }
