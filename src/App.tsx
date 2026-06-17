@@ -16,6 +16,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
