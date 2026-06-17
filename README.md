@@ -1,29 +1,29 @@
 # 🚀 AI & Tech Dashboard
 
-Um dashboard moderno e responsivo que exibe as principais histórias de tecnologia e IA do **Hacker News em tempo real**. Desenvolvido com React, TypeScript e as melhores práticas de UX/UI.
+A modern and responsive dashboard that displays the top technology and AI stories from **Hacker News in real time**. Built with React, TypeScript, and best UX/UI practices.
 
 ## 🌐 Live Demo
 
-👉 **Acesse o projeto em produção:**  
+👉 **Access the production project:**  
 https://jmswebsolutions.com.br/Projeto-AI-Tech-Dashboard/
 
-## 📋 O Que o Projeto Faz
+## 📋 What This Project Does
 
-Este dashboard **agrega e exibe artigos, discussões e notícias** sobre tecnologia e inteligência artificial diretamente da [Hacker News API](https://news.ycombinator.com/api). A aplicação permite:
+This dashboard **aggregates and displays articles, discussions, and news** about technology and artificial intelligence directly from the [Hacker News API](https://news.ycombinator.com/api). The application allows:
 
-- ✅ **Visualizar histórias em tempo real** - Top 30 histórias do Hacker News
-- 🔍 **Filtrar e buscar** - Procure histórias por título
-- ⭐ **Favoritos** - Salve histórias com um clique e filtre só os favoritos (persiste no navegador)
-- 📊 **Metadados completos** - Pontos, comentários, autor, data
-- 🔗 **Links diretos** - Leia o artigo original ou comente no HN
-- 📱 **Design responsivo** - Funciona perfeitamente em mobile, tablet e desktop
-- ⚡ **Performance otimizada** - Cache inteligente com React Query
+- ✅ **View real-time stories** - Top 30 stories from Hacker News
+- 🔍 **Filter and search** - Search stories by title
+- ⭐ **Favorites** - Save stories with one click and filter only favorites (persists in browser)
+- 📊 **Complete metadata** - Points, comments, author, date
+- 🔗 **Direct links** - Read the original article or comment on HN
+- 📱 **Responsive design** - Works perfectly on mobile, tablet, and desktop
+- ⚡ **Optimized performance** - Smart caching with React Query
 
 ## 🎨 Layout & Interface
 
 ```
 ┌─────────────────────────────────────────┐
-│  ⚡ AI & Tech Dashboard      [Live]     │  ← Header sticky
+│  ⚡ AI & Tech Dashboard      [Live]     │  ← Sticky header
 ├─────────────────────────────────────────┤
 │ What's happening in tech & AI           │
 │ [Search stories...............]         │  ← Hero + Search
@@ -36,7 +36,7 @@ Este dashboard **agrega e exibe artigos, discussões e notícias** sobre tecnolo
 │  │ Title... │  │ Title... │  │ ...  │ │
 │  │ 456 ▲    │  │ 234 ▲    │  │ ...  │ │
 │  │ 123 💬   │  │ 456 💬   │  │      │ │
-│  └──────────┘  └──────────┘  └──────┘ │  ← Grid de Cards
+│  └──────────┘  └──────────┘  └──────┘ │  ← Card Grid
 │  ┌──────────┐  ┌──────────┐  ┌──────┐ │
 │  │ Story 04 │  │ Story 05 │  │ Sto..│ │
 │  │ ...      │  │ ...      │  │ ...  │ │
@@ -48,112 +48,112 @@ Este dashboard **agrega e exibe artigos, discussões e notícias** sobre tecnolo
 └─────────────────────────────────────────┘
 ```
 
-## 📚 O Que Aprendi Neste Projeto
+## 📚 What I Learned in This Project
 
-### 1. **Arquitetura de Componentes Modulares**
-- Estruturação de projetos React com componentes reutilizáveis
-- Separação clara de responsabilidades (componentes, hooks, services)
-- CSS Modules para evitar conflitos de estilo
+### 1. **Modular Component Architecture**
+- Structuring React projects with reusable components
+- Clear separation of concerns (components, hooks, services)
+- CSS Modules to avoid style conflicts
 
 ### 2. **React Query (TanStack Query)**
-- Gerenciamento de estado da API de forma elegante
-- Caching automático com `staleTime` e `gcTime`
-- Retry automático em caso de erro
-- Refetch de dados sob demanda
+- Elegant API state management
+- Automatic caching with `staleTime` and `gcTime`
+- Automatic retry on error
+- On-demand data refetch
 
 ```typescript
 const { data: stories, isLoading, error, refetch } = useQuery({
   queryKey: ['topStories'],
   queryFn: loadStoriesFromAPI,
-  staleTime: 5 * 60 * 1000, // 5 minutos
+  staleTime: 5 * 60 * 1000, // 5 minutes
 });
 ```
 
-### 3. **Design System Consistente**
-- Uso de variáveis CSS para manter consistência
-- Paleta de cores unificada (azul, ciano, verde)
-- Espaçamento, tipografia e border-radius padronizados
-- Animações e transições reutilizáveis
+### 3. **Consistent Design System**
+- Using CSS variables for consistency
+- Unified color palette (blue, cyan, green)
+- Standardized spacing, typography, and border-radius
+- Reusable animations and transitions
 
-### 4. **UX/UI Moderna**
-- Estados visuais bem definidos (loading, error, empty)
-- Skeleton screens com shimmer animation
-- Microinterações e feedback visual
-- Acessibilidade (ARIA labels, semântica HTML)
+### 4. **Modern UX/UI**
+- Well-defined visual states (loading, error, empty)
+- Skeleton screens with shimmer animation
+- Micro-interactions and visual feedback
+- Accessibility (ARIA labels, HTML semantics)
 
 ### 5. **TypeScript**
-- Tipagem segura em todo o projeto
-- Interfaces para dados da API
-- Type-safe props em componentes React
+- Type safety throughout the project
+- Interfaces for API data
+- Type-safe props in React components
 
 ### 6. **API Integration**
-- Chamadas HTTP com Fetch API
-- Tratamento robusto de erros
-- Filtros e processamento de dados na aplicação
+- HTTP calls with Fetch API
+- Robust error handling
+- Data filtering and processing in the application
 
-### 7. **Responsividade Mobile-First**
-- Layouts flexíveis com Flexbox e Grid
-- Media queries para diferentes breakpoints
-- Adaptação de componentes para mobile
+### 7. **Mobile-First Responsiveness**
+- Flexible layouts with Flexbox and Grid
+- Media queries for different breakpoints
+- Component adaptation for mobile
 
-### 8. **Performance & Otimizações**
-- Lazy loading de componentes
-- Memoização onde necessário
-- Cache de requisições HTTP
-- Bundling eficiente com Vite
+### 8. **Performance & Optimizations**
+- Lazy loading of components
+- Memoization where needed
+- HTTP request caching
+- Efficient bundling with Vite
 
-## ✨ Features Principais
+## ✨ Key Features
 
-### 🔥 Histórias em Tempo Real
-- Busca automaticamente as 30 principais histórias do Hacker News
-- Atualiza a cada 5 minutos (configurável)
-- Filtra histórias inválidas automaticamente
+### 🔥 Real-Time Stories
+- Automatically fetches the top 30 stories from Hacker News
+- Updates every 5 minutes (configurable)
+- Automatically filters invalid stories
 
-### 🔍 Busca e Filtro
-- Busca por título em tempo real (sem debounce necessário)
-- Campo de busca com limpeza rápida (botão X)
-- Filtro **All** / **Favoritos** na toolbar
-- Mostra quantidade de resultados
+### 🔍 Search and Filter
+- Real-time title search (no debounce needed)
+- Search field with quick clear (X button)
+- **All** / **Favorites** filter in toolbar
+- Shows result count
 
-### ⭐ Favoritos (v2.0)
-- Botão de estrela em cada card para salvar/remover
-- Filtro dedicado para ver só histórias favoritas
-- Contador no header e na toolbar
-- Persistência automática via `localStorage`
-- Empty states específicos (sem favoritos, fora do top 30, busca sem match)
+### ⭐ Favorites (v2.0)
+- Star button on each card to save/remove
+- Dedicated filter to view only favorite stories
+- Counter in header and toolbar
+- Automatic persistence via `localStorage`
+- Specific empty states (no favorites, outside top 30, search no match)
 
-### 📊 Card de Notícia Completo
-Cada histórico exibe:
-- **Ranking** - Posição entre top 30
-- **Título** - Clicável para ir ao artigo
-- **Pontos** (▲) - Votos na comunidade
-- **Comentários** (💬) - Número de discussões
-- **Autor** - Quem submeteu
-- **Data** - Quando foi publicado
-- **Domínio** - Origem da fonte
-- **Botões de ação**:
-  - "Read Article" - Link para artigo original
-  - "Discuss" - Link para comentários no HN
+### 📊 Complete News Card
+Each story displays:
+- **Ranking** - Position among top 30
+- **Title** - Clickable to go to article
+- **Points** (▲) - Community votes
+- **Comments** (💬) - Number of discussions
+- **Author** - Who submitted
+- **Date** - When published
+- **Domain** - Source origin
+- **Action buttons**:
+  - "Read Article" - Link to original article
+  - "Discuss" - Link to HN comments
 
-### 🎨 Estados Visuais
-1. **Loading** - Skeletons com animação shimmer
-2. **Success** - Grid de cards com histórias
-3. **Empty** - Mensagem amigável quando nenhuma história combina
-4. **Error** - Mensagem com botão "Try Again"
+### 🎨 Visual States
+1. **Loading** - Skeletons with shimmer animation
+2. **Success** - Grid of cards with stories
+3. **Empty** - Friendly message when no story matches
+4. **Error** - Message with "Try Again" button
 
-### 📱 Design Responsivo
-- **Desktop** - Grid 3-4 colunas, primeiro card em destaque
-- **Tablet** - Grid 2-3 colunas
-- **Mobile** - Grid 1 coluna, otimizado para touch
+### 📱 Responsive Design
+- **Desktop** - 3-4 column grid, first card highlighted
+- **Tablet** - 2-3 column grid
+- **Mobile** - 1 column grid, touch-optimized
 
-### ♿ Acessibilidade
-- Labels semânticos em inputs
-- ARIA attributes em botões
-- Contraste de cores adequado
-- Focus states visíveis
-- Navegação por teclado
+### ♿ Accessibility
+- Semantic labels on inputs
+- ARIA attributes on buttons
+- Adequate color contrast
+- Visible focus states
+- Keyboard navigation
 
-## 🛠️ Stack Técnico
+## 🛠️ Tech Stack
 
 ### Frontend
 - **React 19** - UI library
@@ -168,82 +168,82 @@ Cada histórico exibe:
 - **Node.js** - Runtime
 
 ### API
-- **Hacker News API** - Fonte de dados
+- **Hacker News API** - Data source
 - **Fetch API** - HTTP requests
 
-## 🚀 Como Começar
+## 🚀 Getting Started
 
-### Pré-requisitos
-- Node.js 16+ instalado
-- npm ou yarn
+### Prerequisites
+- Node.js 16+ installed
+- npm or yarn
 
-### Instalação
+### Installation
 
 ```bash
-# Clonar o projeto
+# Clone the project
 git clone <repo-url>
 cd projeto-ai-tech-dashboard
 
-# Instalar dependências
+# Install dependencies
 npm install
 
-# Iniciar servidor de desenvolvimento
+# Start development server
 npm run dev
 ```
 
-O projeto estará disponível em `http://localhost:5173`
+The project will be available at `http://localhost:5173`
 
-### Build para Produção
+### Production Build
 
 ```bash
-# Compilar TypeScript e fazer build
+# Compile TypeScript and build
 npm run build
 
-# Visualizar build localmente
+# Preview build locally
 npm run preview
 ```
 
-### Lint e Qualidade
+### Lint and Quality
 
 ```bash
-# Verificar erros de lint
+# Check lint errors
 npm run lint
 ```
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 src/
-├── components/              # Componentes reutilizáveis
-│   ├── Header.tsx           # Cabeçalho com logo
-│   ├── SearchBar.tsx        # Barra de busca
-│   ├── NewsCard.tsx         # Card de notícia
-│   ├── LoadingState.tsx     # Estados de carregamento
-│   ├── EmptyState.tsx       # Estado vazio
-│   ├── ErrorState.tsx       # Estado de erro
-│   └── *.module.css         # Estilos modulares
+├── components/              # Reusable components
+│   ├── Header.tsx           # Header with logo
+│   ├── SearchBar.tsx        # Search bar
+│   ├── NewsCard.tsx         # News card
+│   ├── LoadingState.tsx     # Loading states
+│   ├── EmptyState.tsx       # Empty state
+│   ├── ErrorState.tsx       # Error state
+│   └── *.module.css         # Modular styles
 │
-├── pages/                   # Páginas da aplicação
-│   └── Home.tsx            # Página principal
+├── pages/                   # Application pages
+│   └── Home.tsx            # Main page
 │
 ├── hooks/                   # Custom Hooks
-│   ├── useNews.ts          # Hook para carregar histórias
-│   └── useFavorites.ts     # Hook para favoritos (localStorage)
+│   ├── useNews.ts          # Hook to load stories
+│   └── useFavorites.ts     # Hook for favorites (localStorage)
 │
-├── services/               # Serviços (API)
-│   └── newsApi.ts          # Funções de API do HN
+├── services/               # Services (API)
+│   └── newsApi.ts          # HN API functions
 │
-├── types/                  # Definições TypeScript
-│   └── Story.ts            # Interface de Story
+├── types/                  # TypeScript definitions
+│   └── Story.ts            # Story interface
 │
-├── styles/                 # Estilos globais
+├── styles/                 # Global styles
 │   └── index.css           # Design System
 │
 ├── App.tsx                 # Root component
 └── main.tsx               # Entry point
 ```
 
-### Hierarquia de Componentes
+### Component Hierarchy
 
 ```
 App
@@ -253,8 +253,8 @@ App
         ├── Header
         ├── Hero
         │   ├── SearchBar
-        │   └── Título + descrição
-        ├── Toolbar (info de filtros)
+        │   └── Title + description
+        ├── Toolbar (filter info)
         └── Main
             ├── LoadingState
             ├── EmptyState
@@ -266,18 +266,18 @@ App
 
 ## 🎨 Design System
 
-### Paleta de Cores
+### Color Palette
 ```
-Primary:      #3b82f6 (Azul vibrante)
-Secondary:    #06b6d4 (Ciano)
-Success:      #10b981 (Verde)
-Warning:      #f59e0b (Âmbar)
-Error:        #ef4444 (Vermelho)
-Background:   #0a0e27 (Azul escuro)
-Text:         #f8fafc (Branco gelo)
+Primary:      #3b82f6 (Vibrant blue)
+Secondary:    #06b6d4 (Cyan)
+Success:      #10b981 (Green)
+Warning:      #f59e0b (Amber)
+Error:        #ef4444 (Red)
+Background:   #0a0e27 (Dark blue)
+Text:         #f8fafc (Ice white)
 ```
 
-### Variáveis CSS Disponíveis
+### Available CSS Variables
 ```css
 /* Backgrounds */
 --bg-primary, --bg-secondary, --bg-tertiary, --bg-hover
@@ -301,20 +301,20 @@ Text:         #f8fafc (Branco gelo)
 --shadow-sm, --shadow-md, --shadow-lg, --shadow-xl
 ```
 
-### Animações
-- `fadeIn` - Fade in suave
-- `slideInUp` - Desliza para cima com fade
-- `pulse` - Pulsação contínua (para badges)
+### Animations
+- `fadeIn` - Smooth fade in
+- `slideInUp` - Slide up with fade
+- `pulse` - Continuous pulsation (for badges)
 - `shimmer` - Loading skeleton animation
 
-## 📊 Dados Carregados
+## 📊 Loaded Data
 
-O projeto busca automaticamente:
+The project automatically fetches:
 
 ```json
 {
   "id": 12345678,
-  "title": "Como Usar AI para Aumentar Produtividade",
+  "title": "How to Use AI to Increase Productivity",
   "by": "username",
   "score": 456,
   "time": 1686100000,
@@ -323,82 +323,59 @@ O projeto busca automaticamente:
 }
 ```
 
-**Origem**: [Hacker News API](https://news.ycombinator.com/api)
+**Source**: [Hacker News API](https://news.ycombinator.com/api)
 
-## 🔄 Fluxo de Dados
+## 🔄 Data Flow
 
 ```
-1. App.tsx monta QueryClientProvider
-2. Home.tsx renderiza e chama useNews()
-3. useNews() executa query no React Query
-4. newsApi.getTopStories() → Array de IDs
-5. Promise.all(getStory(id)) → Array de Stories
-6. Retorna { stories, loading, error, refetch }
-7. Home filtra stories pelo search
-8. Renderiza NewsCard para cada história
+1. App.tsx mounts QueryClientProvider
+2. Home.tsx renders and calls useNews()
+3. useNews() executes query in React Query
+4. newsApi.getTopStories() → Array of IDs
+5. Promise.all(getStory(id)) → Array of Stories
+6. Returns { stories, loading, error, refetch }
+7. Home filters stories by search
+8. Renders NewsCard for each story
 ```
 
-## 🎯 Principais Aprendizados
+## 🎯 Key Learnings
 
-| Conceito | O Que Aprendi |
+| Concept | What I Learned |
 |----------|---------------|
-| **React Query** | Como gerenciar estado de API e cache |
-| **CSS Modules** | Evitar conflitos com estilos scoped |
-| **Design System** | Consistência com variáveis CSS |
-| **TypeScript** | Segurança de tipos em todo o code |
-| **Componentes** | Como estruturar componentes reutilizáveis |
-| **UX/UI** | Estados visuais e microinterações |
-| **Performance** | Caching, lazy loading, otimizações |
-| **Acessibilidade** | ARIA, semântica HTML, focus states |
+| **React Query** | How to manage API state and cache |
+| **CSS Modules** | Avoid conflicts with scoped styles |
+| **Design System** | Consistency with CSS variables |
+| **TypeScript** | Type safety throughout the code |
+| **Components** | How to structure reusable components |
+| **UX/UI** | Visual states and micro-interactions |
+| **Performance** | Caching, lazy loading, optimizations |
+| **Accessibility** | ARIA, HTML semantics, focus states |
 
-## 🚀 Melhorias Futuras
+## 🚀 Future Improvements
 
-- [ ] Testes unitários com Vitest
-- [ ] Testes E2E com Playwright
+- [ ] Unit tests with Vitest
+- [ ] E2E tests with Playwright
 - [ ] PWA features (offline, install)
 - [ ] Dark/Light mode toggle
-- [x] Favoritos/bookmarks
-- [ ] Categorias de filtro (jobs, polls, etc)
+- [x] Favorites/bookmarks
+- [ ] Filter categories (jobs, polls, etc)
 - [ ] Analytics (Sentry, Mixpanel)
 - [ ] Infinite scroll
-- [ ] Tema customizável
+- [ ] Customizable theme
 
-## 📜 Licença
+## 📜 License
 
-Este projeto é de código aberto e está disponível sob a licença MIT.
+This project is open source and available under the MIT license.
 
-## 🙌 Contribuindo
+## 🙌 Contributing
 
-Contribuições são bem-vindas! Sinta-se livre para abrir issues ou pull requests.
+Contributions are welcome! Feel free to open issues or pull requests.
 
 ---
 
-**Desenvolvido com ❤️ em 2026 - React + TypeScript + Vite + React Query**
+**Built with ❤️ in 2026 - React + TypeScript + Vite + React Query**
 
-Para mais informações:
-- 📖 [Documentação de Arquitetura](./ARCHITECTURE.md)
-- 📝 [Detalhes da Refatoração](./REFACTOR.md)
+For more information:
+- 📖 [Architecture Documentation](./ARCHITECTURE.md)
+- 📝 [Refactoring Details](./REFACTOR.md)
 - 🔗 [Hacker News API](https://news.ycombinator.com/api)
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```

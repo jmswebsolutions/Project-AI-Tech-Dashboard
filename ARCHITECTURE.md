@@ -33,7 +33,7 @@ projeto-ai-tech-dashboard/
 │   │   └── Home.module.css
 │   │
 │   ├── hooks/
-│   │   ├── useNews.ts ⭐ Usa React Query
+│   │   ├── useNews.ts ⭐ Uses React Query
 │   │   ├── useFavorites.ts
 │   │   ├── useTheme.ts
 │   │   └── useInfiniteScroll.ts ⭐ Intersection Observer
@@ -52,11 +52,11 @@ projeto-ai-tech-dashboard/
 │   │   └── categories.ts
 │   │
 │   ├── styles/
-│   │   └── index.css ⭐ Design System Global
+│   │   └── index.css ⭐ Global Design System
 │   │
-│   ├── App.tsx ⭐ Com QueryClient & Router
+│   ├── App.tsx ⭐ With QueryClient & Router
 │   ├── main.tsx
-│   ├── index.css (legado)
+│   ├── index.css (legacy)
 │   └── assets/
 │
 ├── public/
@@ -65,10 +65,10 @@ projeto-ai-tech-dashboard/
 ├── vite.config.ts
 ├── eslint.config.js
 ├── README.md
-└── ARCHITECTURE.md ⭐ Documentação da arquitetura
+└── ARCHITECTURE.md ⭐ Architecture documentation
 ```
 
-## 🎯 Arquitetura da Aplicação
+## 🎯 Application Architecture
 
 ```
 App (QueryClientProvider + Router)
@@ -81,30 +81,30 @@ App (QueryClientProvider + Router)
   │   └── ContentArea
   │       ├── ResultsInfo
   │       ├── LoadingState (skeleton)
-  │       ├── EmptyState (sem resultados)
-  │       ├── ErrorState (erro com retry)
+  │       ├── EmptyState (no results)
+  │       ├── ErrorState (error with retry)
   │       └── NewsGrid
-  │           └── NewsCard[] (lista de histórias)
+  │           └── NewsCard[] (story list)
   └── Footer
 ```
 
-## 🏗️ Princípios de Design
+## 🏗️ Design Principles
 
-### Separação de Responsabilidades
-- **Hooks**: Lógica de dados e efeitos colaterais (useNews, useFavorites, useInfiniteScroll, useTheme)
-- **Utils**: Funções puras de negócio (storyFilters, emptyState)
-- **Components**: Apresentação e interação UI
-- **Constants**: Valores estáticos e configurações (categories)
+### Separation of Concerns
+- **Hooks**: Data logic and side effects (useNews, useFavorites, useInfiniteScroll, useTheme)
+- **Utils**: Pure business functions (storyFilters, emptyState)
+- **Components**: UI presentation and interaction
+- **Constants**: Static values and configurations (categories)
 
-### Componentes Modulares
-- **CategorySelector**: Seleção de categorias com radio group semântico
-- **FavoritesToggle**: Toggle para favoritos com switch UI
-- **FilterBar**: Combina CategorySelector e FavoritesToggle
-- **ResultsInfo**: Exibe informações sobre resultados filtrados
-- **NewsGrid**: Grade de notícias com scroll infinito
-- **ContentArea**: Área principal de conteúdo com estados (loading, error, empty)
+### Modular Components
+- **CategorySelector**: Category selection with semantic radio group
+- **FavoritesToggle**: Favorites toggle with switch UI
+- **FilterBar**: Combines CategorySelector and FavoritesToggle
+- **ResultsInfo**: Displays filtered results information
+- **NewsGrid**: News grid with infinite scroll
+- **ContentArea**: Main content area with states (loading, error, empty)
 
-## 🔄 Fluxo de Dados
+## 🔄 Data Flow
 
 ```
 useNews Hook (React Query)
@@ -114,8 +114,8 @@ useNews Hook (React Query)
 
 useInfiniteScroll Hook
   ├── Intersection Observer API
-  ├── Detecta quando sentinel element é visível
-  └── Chama fetchNextPage() quando necessário
+  ├── Detects when sentinel element is visible
+  └── Calls fetchNextPage() when needed
 
 Home Component
   ├── State: category, search, view (local)
@@ -139,19 +139,19 @@ Home Component
 - `--radius-sm` to `--radius-xl`
 - `--transition-fast`, `--transition-base`, `--transition-slow`
 
-**Animações**:
-- `fadeIn` - Fade in suave
-- `slideInUp` - Slide up com fade
-- `pulse` - Pulsação contínua
+**Animations**:
+- `fadeIn` - Smooth fade in
+- `slideInUp` - Slide up with fade
+- `pulse` - Continuous pulsation
 - `shimmer` - Loading skeleton animation
 
-## ✨ Recursos Principais
+## ✨ Key Features
 
-- ⚡ **Performance**: React Query com caching e scroll infinito
-- 🎨 **Estilos**: CSS Modules + Design System
-- 📱 **Responsivo**: Mobile, tablet, desktop
-- ♿ **Acessível**: Radio groups semânticos, fieldsets, focus indicators, ARIA labels
-- 🔧 **Tipado**: TypeScript 100%
-- 🚀 **Moderno**: React 19, Vite
-- 🏗️ **Modular**: Componentes pequenos e reutilizáveis
-- 🔄 **Scroll Infinito**: Intersection Observer API
+- ⚡ **Performance**: React Query with caching and infinite scroll
+- 🎨 **Styling**: CSS Modules + Design System
+- 📱 **Responsive**: Mobile, tablet, desktop
+- ♿ **Accessible**: Semantic radio groups, fieldsets, focus indicators, ARIA labels
+- 🔧 **Typed**: TypeScript 100%
+- 🚀 **Modern**: React 19, Vite
+- 🏗️ **Modular**: Small and reusable components
+- 🔄 **Infinite Scroll**: Intersection Observer API

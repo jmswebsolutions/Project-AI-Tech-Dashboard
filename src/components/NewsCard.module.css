@@ -275,6 +275,18 @@
   outline-offset: 2px;
 }
 
+[data-theme='dark'] .iconButton {
+  background: var(--bg-tertiary);
+  border-color: var(--border-primary);
+  color: var(--text-secondary);
+}
+
+[data-theme='dark'] .iconButton:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-secondary);
+  color: var(--text-primary);
+}
+
 .commentsLoading {
   padding: var(--space-lg);
   text-align: center;

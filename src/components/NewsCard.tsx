@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
 import type { Story } from '../types/Story';
 import type { Comment } from '../services/newsApi';
 import { CommentThread } from './CommentThread';
-import { ReaderMode } from './ReaderMode';
 import styles from './NewsCard.module.css';
 
 interface NewsCardProps {
@@ -17,7 +15,6 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
-  const [showReaderMode, setShowReaderMode] = useState(false);
   const date = new Date(story.time * 1000).toLocaleDateString('en-US', {
     day: '2-digit',
     month: 'short',
@@ -124,25 +121,15 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
 
       <div className={styles.actions}>
         {articleHref && (
-          <>
-            <button
-              type="button"
-              className={`${styles.button} ${styles.primary}`}
-              onClick={() => setShowReaderMode(true)}
-            >
-              Reader Mode
-              <span className={styles.arrow}>📖</span>
-            </button>
-            <a
-              href={articleHref}
-              target="_blank"
-              rel="noreferrer"
-              className={`${styles.button} ${styles.primary}`}
-            >
-              Read Article
-              <span className={styles.arrow}>→</span>
-            </a>
-          </>
+          <a
+            href={articleHref}
+            target="_blank"
+            rel="noreferrer"
+            className={`${styles.button} ${styles.primary}`}
+          >
+            Read Article
+            <span className={styles.arrow}>→</span>
+          </a>
         )}
         <button
           type="button"
@@ -176,12 +163,6 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
           )}
         </>
       )}
-
-      {showReaderMode &&
-        createPortal(
-          <ReaderMode story={story} onClose={() => setShowReaderMode(false)} />,
-          document.body
-        )}
     </article>
   );
 }
