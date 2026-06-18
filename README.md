@@ -5,7 +5,7 @@ A modern and responsive dashboard that displays the top technology and AI storie
 ## 🌐 Live Demo
 
 👉 **Access the production project:**  
-https://jmswebsolutions.com.br/Projeto-AI-Tech-Dashboard/
+https://jmswebsolutions.com.br/Project-AI-Tech-Dashboard/
 
 ## 📋 What This Project Does
 
@@ -182,7 +182,7 @@ Each story displays:
 ```bash
 # Clone the project
 git clone <repo-url>
-cd projeto-ai-tech-dashboard
+cd project-ai-tech-dashboard
 
 # Install dependencies
 npm install

@@ -94,7 +94,7 @@ export function Home() {
               <a href="https://news.ycombinator.com" target="_blank" rel="noreferrer">
                 Hacker News
               </a>
-              <a href="https://github.com/jmswebsolutions/Projeto-AI-Tech-Dashboard" target="_blank" rel="noreferrer">
+              <a href="https://github.com/jmswebsolutions/Project-AI-Tech-Dashboard" target="_blank" rel="noreferrer">
                 GitHub
               </a>
             </div>

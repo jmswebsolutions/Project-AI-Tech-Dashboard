@@ -28,13 +28,13 @@ Thank you for your interest in contributing to the AI & Tech Dashboard! This doc
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Projeto-AI-Tech-Dashboard.git
-   cd Projeto-AI-Tech-Dashboard
+   git clone https://github.com/YOUR_USERNAME/Project-AI-Tech-Dashboard.git
+   cd Project-AI-Tech-Dashboard
    ```
 
 3. Add the original repository as upstream:
    ```bash
-   git remote add upstream https://github.com/jmswebsolutions/Projeto-AI-Tech-Dashboard.git
+   git remote add upstream https://github.com/jmswebsolutions/Project-AI-Tech-Dashboard.git
    ```
 
 ---
