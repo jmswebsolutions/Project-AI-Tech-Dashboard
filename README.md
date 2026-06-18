@@ -214,33 +214,38 @@ npm run lint
 
 ```
 src/
-├── components/              # Reusable components
-│   ├── Header.tsx           # Header with logo
-│   ├── SearchBar.tsx        # Search bar
-│   ├── NewsCard.tsx         # News card
-│   ├── LoadingState.tsx     # Loading states
-│   ├── EmptyState.tsx       # Empty state
-│   ├── ErrorState.tsx       # Error state
-│   └── *.module.css         # Modular styles
+├── api/                    # API clients (external API communication)
+│   └── newsApi.ts          # Hacker News API functions
 │
-├── pages/                   # Application pages
-│   └── Home.tsx            # Main page
+├── components/             # Reusable components
+│   ├── Header.tsx          # Header with logo
+│   ├── SearchBar.tsx       # Search bar
+│   ├── NewsCard.tsx        # News card
+│   ├── LoadingState.tsx    # Loading states
+│   ├── EmptyState.tsx      # Empty state
+│   ├── ErrorState.tsx      # Error state
+│   └── *.module.css        # Modular styles
 │
-├── hooks/                   # Custom Hooks
+├── constants/              # Configuration and static data
+│   └── categories.ts       # Category labels
+│
+├── hooks/                  # Custom Hooks (business logic)
 │   ├── useNews.ts          # Hook to load stories
-│   └── useFavorites.ts     # Hook for favorites (localStorage)
+│   ├── useFavorites.ts     # Hook for favorites (localStorage)
+│   ├── useTheme.ts         # Hook for theme management
+│   └── useInfiniteScroll.ts # Hook for infinite scroll
 │
-├── services/               # Services (API)
-│   └── newsApi.ts          # HN API functions
-│
-├── types/                  # TypeScript definitions
-│   └── Story.ts            # Story interface
+├── pages/                  # Application pages
+│   └── Home.tsx            # Main page
 │
 ├── styles/                 # Global styles
 │   └── index.css           # Design System
 │
+├── types/                  # TypeScript definitions
+│   └── Story.ts            # Story interface
+│
 ├── App.tsx                 # Root component
-└── main.tsx               # Entry point
+└── main.tsx                # Entry point
 ```
 
 ### Component Hierarchy

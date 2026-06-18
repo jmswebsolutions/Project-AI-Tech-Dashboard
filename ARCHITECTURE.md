@@ -17,10 +17,32 @@ This document describes the architecture of the AI & Tech Dashboard application.
 
 The AI & Tech Dashboard follows a **component-based architecture** with clear separation of concerns:
 
-- **Presentation Layer**: React components handle UI rendering and user interactions
-- **Data Layer**: Custom hooks encapsulate data fetching and state management
-- **Service Layer**: API services handle external data sources
-- **Persistence Layer**: localStorage for client-side persistence
+### Layer Responsibilities
+
+**Presentation Layer** (`src/components/`, `src/pages/`)
+- **Responsibility**: UI rendering and user interactions only
+- **What it does**: Display data, handle user input, manage visual state
+- **What it does NOT do**: Direct API calls, business logic, data transformation
+
+**Data Layer** (`src/hooks/`)
+- **Responsibility**: Data fetching, state management, and business logic
+- **What it does**: Encapsulate React Query logic, manage localStorage, coordinate data flow
+- **What it does NOT do**: UI rendering, direct DOM manipulation
+
+**API Layer** (`src/api/`)
+- **Responsibility**: External API communication
+- **What it does**: Make HTTP requests to Hacker News API, handle API-specific logic
+- **What it does NOT do**: State management, caching (handled by React Query), UI logic
+
+**Type Layer** (`src/types/`)
+- **Responsibility**: TypeScript type definitions
+- **What it does**: Define interfaces for API responses, component props, and data structures
+- **What it does NOT do**: Runtime logic, business rules
+
+**Constants Layer** (`src/constants/`)
+- **Responsibility**: Configuration and static data
+- **What it does**: Store category labels, configuration values, static mappings
+- **What it does NOT do**: Dynamic data, business logic
 
 The application uses **React Query** for server state management and **React hooks** for local state management, following the principle of colocation where logic lives close to where it's used.
 
@@ -103,12 +125,14 @@ Managed with **localStorage**:
 
 ## Data Layer
 
-### API Service
+### API Layer
 
-The `newsApi` service provides a clean interface to the Hacker News API:
+The `api/newsApi` module provides a clean interface to the Hacker News API:
 - `getStoriesByCategory(category)`: Fetches story IDs by category
 - `getStory(id)`: Fetches individual story details
 - `getComments(ids)`: Fetches comment threads
+
+**Note**: This layer only handles HTTP requests. Caching, retry logic, and state management are handled by React Query in the hooks layer.
 
 ### Custom Hooks
 

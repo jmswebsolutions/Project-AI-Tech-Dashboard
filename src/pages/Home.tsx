@@ -7,7 +7,7 @@ import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { filterStories } from '../components/home/storyFilters';
-import type { StoryCategory } from '../services/newsApi';
+import type { StoryCategory } from '../api/newsApi';
 import styles from './Home.module.css';
 
 type ViewFilter = 'all' | 'favorites';

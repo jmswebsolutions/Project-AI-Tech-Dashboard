@@ -1,4 +1,4 @@
-import type { StoryCategory } from '../services/newsApi';
+import type { StoryCategory } from '../api/newsApi';
 
 export const categoryLabels: Record<StoryCategory, string> = {
   top: 'Top Stories',

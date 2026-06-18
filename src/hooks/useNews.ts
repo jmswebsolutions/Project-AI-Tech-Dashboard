@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getStory, getStoriesByCategory, type StoryCategory } from '../services/newsApi';
+import { getStory, getStoriesByCategory, type StoryCategory } from '../api/newsApi';
 
 const STORIES_PER_PAGE = 30;
 
