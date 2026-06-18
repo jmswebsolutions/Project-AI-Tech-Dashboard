@@ -1,4 +1,4 @@
-import type { StoryCategory } from '../../services/newsApi';
+import type { StoryCategory } from '../../api/newsApi';
 import { CategorySelector } from './CategorySelector';
 import { FavoritesToggle } from './FavoritesToggle';
 import styles from './FilterBar.module.css';

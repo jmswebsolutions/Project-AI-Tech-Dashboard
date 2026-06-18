@@ -1,4 +1,4 @@
-import type { StoryCategory } from '../../services/newsApi';
+import type { StoryCategory } from '../../api/newsApi';
 import { categoryLabels } from '../../constants/categories';
 import styles from './CategorySelector.module.css';
 
@@ -22,7 +22,7 @@ export function CategorySelector({ value, onChange }: CategorySelectorProps) {
               onChange={() => onChange(cat)}
               className={styles.radio}
             />
-            <span className={styles.text}>{categoryLabels[cat]}</span>
+            <span className={styles.text}>{categoryLabels[cat as StoryCategory]}</span>
           </label>
         ))}
       </div>

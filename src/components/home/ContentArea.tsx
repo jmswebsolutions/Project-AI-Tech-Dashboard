@@ -4,7 +4,7 @@ import { EmptyState } from '../EmptyState/EmptyState';
 import { ErrorState } from '../ErrorState/ErrorState';
 import { NewsGrid } from './NewsGrid';
 import { ResultsInfo } from './ResultsInfo';
-import type { StoryCategory } from '../../services/newsApi';
+import type { StoryCategory } from '../../api/newsApi';
 import styles from './ContentArea.module.css';
 
 interface ContentAreaProps {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Story } from '../../types/Story';
-import type { Comment } from '../../services/newsApi';
+import type { Comment } from '../../api/newsApi';
 import { CommentThread } from '../CommentThread/CommentThread';
 import styles from './NewsCard.module.css';
 
@@ -58,7 +58,7 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
     if (!showComments && comments.length === 0 && !loadingComments) {
       setLoadingComments(true);
       try {
-        const { getComments } = await import('../../services/newsApi');
+        const { getComments } = await import('../../api/newsApi');
         if (story.kids) {
           const fetchedComments = await getComments(story.kids);
           setComments(fetchedComments);

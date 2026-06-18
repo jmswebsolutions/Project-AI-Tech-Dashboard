@@ -1,4 +1,4 @@
-import type { StoryCategory } from '../../services/newsApi';
+import type { StoryCategory } from '../../api/newsApi';
 import { categoryLabels } from '../../constants/categories';
 import styles from './ResultsInfo.module.css';
 
@@ -33,7 +33,7 @@ export function ResultsInfo({ count, category, view, search }: ResultsInfoProps)
       {!search && view === 'all' && (
         <>
           <span className={styles.label}>in</span>
-          <span className={styles.chip}>{categoryLabels[category]}</span>
+          <span className={styles.chip}>{categoryLabels[category as StoryCategory]}</span>
         </>
       )}
     </div>
