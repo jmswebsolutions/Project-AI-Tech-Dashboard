@@ -1,5 +1,5 @@
 import type { Story } from '../../types/Story';
-import { NewsCard } from '../NewsCard';
+import { NewsCard } from '../NewsCard/NewsCard';
 import styles from './NewsGrid.module.css';
 
 interface NewsGridProps {

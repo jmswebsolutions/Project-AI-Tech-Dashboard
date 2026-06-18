@@ -11,7 +11,7 @@ export function CategorySelector({ value, onChange }: CategorySelectorProps) {
   return (
     <fieldset className={styles.fieldset}>
       <legend className={styles.legend}>Category</legend>
-      <div role="radiogroup" aria-label="Story categories" className={styles.radioGroup}>
+      <div className={styles.radioGroup}>
         {(Object.keys(categoryLabels) as StoryCategory[]).map((cat) => (
           <label key={cat} className={styles.label}>
             <input

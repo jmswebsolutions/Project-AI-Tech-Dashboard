@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Header } from '../components/Header';
-import { SearchBar } from '../components/SearchBar';
+import { Header } from '../components/Header/Header';
+import { SearchBar } from '../components/SearchBar/SearchBar';
 import { FilterBar } from '../components/home/FilterBar';
 import { ContentArea } from '../components/home/ContentArea';
 import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { filterStories } from '../utils/storyFilters';
+import { filterStories } from '../components/home/storyFilters';
 import type { StoryCategory } from '../services/newsApi';
 import styles from './Home.module.css';
 

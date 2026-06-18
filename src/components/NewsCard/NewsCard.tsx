@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import type { Story } from '../types/Story';
-import type { Comment } from '../services/newsApi';
-import { CommentThread } from './CommentThread';
+import type { Story } from '../../types/Story';
+import type { Comment } from '../../services/newsApi';
+import { CommentThread } from '../CommentThread/CommentThread';
 import styles from './NewsCard.module.css';
 
 interface NewsCardProps {
@@ -58,7 +58,7 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
     if (!showComments && comments.length === 0 && !loadingComments) {
       setLoadingComments(true);
       try {
-        const { getComments } = await import('../services/newsApi');
+        const { getComments } = await import('../../services/newsApi');
         if (story.kids) {
           const fetchedComments = await getComments(story.kids);
           setComments(fetchedComments);
@@ -82,7 +82,6 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
               type="button"
               className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteActive : ''}`}
               onClick={() => onToggleFavorite(story.id)}
-              aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               aria-pressed={isFavorite}
             >
               {isFavorite ? '★' : '☆'}
@@ -143,12 +142,12 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
         </button>
         <button
           type="button"
-          className={styles.iconButton}
+          className={`${styles.button} ${styles.shareBtn}`}
           onClick={handleShare}
-          aria-label="Share story"
           title="Share story"
         >
-          📤
+          <span className={styles.icon}>📤</span>
+          Share
         </button>
       </div>
 

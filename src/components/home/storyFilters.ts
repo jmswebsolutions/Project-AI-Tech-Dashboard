@@ -1,4 +1,4 @@
-import type { Story } from '../types/Story';
+import type { Story } from '../../types/Story';
 
 type ViewFilter = 'all' | 'favorites';
 

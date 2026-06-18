@@ -29,13 +29,11 @@ export function SearchBar({ value, onChange, placeholder = 'Search stories...' }
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        aria-label="Search stories"
       />
       {value && (
         <button
           className={styles.clear}
           onClick={() => onChange('')}
-          aria-label="Clear search"
           type="button"
         >
           ✕

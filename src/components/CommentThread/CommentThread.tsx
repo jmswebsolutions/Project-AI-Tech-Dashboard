@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Comment } from '../services/newsApi';
+import type { Comment } from '../../services/newsApi';
 import styles from './CommentThread.module.css';
 
 interface CommentThreadProps {
@@ -68,7 +68,7 @@ export function CommentThread({ comments, storyId }: CommentThreadProps) {
     if (loadedChildren.has(commentId)) return;
 
     try {
-      const { getCommentTree } = await import('../services/newsApi');
+      const { getCommentTree } = await import('../../services/newsApi');
       const comment = allComments.find(c => c.id === commentId);
       if (comment?.kids) {
         const childComments = await getCommentTree(comment.kids);

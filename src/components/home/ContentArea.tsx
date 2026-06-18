@@ -1,7 +1,7 @@
 import type { Story } from '../../types/Story';
-import { LoadingState } from '../LoadingState';
-import { EmptyState } from '../EmptyState';
-import { ErrorState } from '../ErrorState';
+import { LoadingState } from '../LoadingState/LoadingState';
+import { EmptyState } from '../EmptyState/EmptyState';
+import { ErrorState } from '../ErrorState/ErrorState';
 import { NewsGrid } from './NewsGrid';
 import { ResultsInfo } from './ResultsInfo';
 import type { StoryCategory } from '../../services/newsApi';

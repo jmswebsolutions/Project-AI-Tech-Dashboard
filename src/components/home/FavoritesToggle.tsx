@@ -16,7 +16,6 @@ export function FavoritesToggle({ value, onChange, count }: FavoritesToggleProps
         checked={isFavorites}
         onChange={(e) => onChange(e.target.checked ? 'favorites' : 'all')}
         className={styles.input}
-        aria-label={`Show ${isFavorites ? 'all stories' : 'favorites only'}`}
       />
       <span className={styles.track}>
         <span className={styles.thumb} />

@@ -1,5 +1,5 @@
 import styles from './Header.module.css';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from '../../hooks/useTheme';
 
 interface HeaderProps {
   title?: string;
@@ -32,7 +32,6 @@ export function Header({ title = 'AI & Tech Dashboard', subtitle, favoriteCount 
               type="button"
               className={styles.themeToggle}
               onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
               {theme === 'dark' ? '☀️' : '🌙'}
