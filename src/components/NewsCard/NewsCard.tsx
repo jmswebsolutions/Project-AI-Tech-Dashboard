@@ -136,18 +136,18 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
           onClick={handleToggleComments}
           title={`${story.descendants ?? 0} comments`}
           aria-expanded={showComments}
+          aria-label={`${story.descendants ?? 0} comments`}
         >
           <span className={styles.icon}>💬</span>
-          {story.descendants ?? 0}
         </button>
         <button
           type="button"
           className={`${styles.button} ${styles.shareBtn}`}
           onClick={handleShare}
           title="Share story"
+          aria-label="Share story"
         >
           <span className={styles.icon}>📤</span>
-          Share
         </button>
       </div>
 
