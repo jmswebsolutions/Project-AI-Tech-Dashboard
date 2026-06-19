@@ -104,7 +104,19 @@ const { data: stories, isLoading, error, refetch } = useQuery({
 
 ## ✨ Key Features
 
-### 🔥 Real-Time Stories
+### � PWA (Progressive Web App)
+- Installable as a native app on desktop and mobile
+- Offline support with service worker caching
+- Automatic updates in the background
+- Add to home screen capability
+
+### 🌙 Dark/Light Mode
+- Toggle between dark and light themes
+- System preference detection
+- Theme persistence in localStorage
+- Smooth theme transitions
+
+### �🔥 Real-Time Stories
 - Automatically fetches the top 30 stories from Hacker News
 - Updates every 5 minutes (configurable)
 - Automatically filters invalid stories
@@ -360,12 +372,12 @@ The project automatically fetches:
 
 - [ ] Unit tests with Vitest
 - [ ] E2E tests with Playwright
-- [ ] PWA features (offline, install)
-- [ ] Dark/Light mode toggle
+- [x] PWA features (offline, install)
+- [x] Dark/Light mode toggle
 - [x] Favorites/bookmarks
 - [ ] Filter categories (jobs, polls, etc)
 - [ ] Analytics (Sentry, Mixpanel)
-- [ ] Infinite scroll
+- [x] Infinite scroll
 - [ ] Customizable theme
 
 ## 📜 License

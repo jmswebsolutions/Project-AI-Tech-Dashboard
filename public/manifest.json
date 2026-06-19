@@ -2,7 +2,7 @@
   "name": "AI & Tech Dashboard",
   "short_name": "AI Tech",
   "description": "Real-time tech and AI news from Hacker News",
-  "start_url": "/",
+  "start_url": "/Project-AI-Tech-Dashboard/",
   "display": "standalone",
   "background_color": "#0a0e27",
   "theme_color": "#3b82f6",
