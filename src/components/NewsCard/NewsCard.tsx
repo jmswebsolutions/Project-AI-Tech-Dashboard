@@ -9,9 +9,11 @@ interface NewsCardProps {
   index: number;
   isFavorite?: boolean;
   onToggleFavorite?: (storyId: number) => void;
+  isRead?: boolean;
+  onToggleRead?: (storyId: number) => void;
 }
 
-export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }: NewsCardProps) {
+export function NewsCard({ story, index, isFavorite = false, onToggleFavorite, isRead = false, onToggleRead }: NewsCardProps) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
@@ -73,20 +75,33 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite }:
   };
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${isRead ? styles.read : ''}`}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <span className={styles.rank}>{String(index + 1).padStart(2, '0')}</span>
-          {onToggleFavorite && (
-            <button
-              type="button"
-              className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteActive : ''}`}
-              onClick={() => onToggleFavorite(story.id)}
-              aria-pressed={isFavorite}
-            >
-              {isFavorite ? '★' : '☆'}
-            </button>
-          )}
+          <div className={styles.headerActions}>
+            {onToggleRead && (
+              <button
+                type="button"
+                className={`${styles.readBtn} ${isRead ? styles.readActive : ''}`}
+                onClick={() => onToggleRead(story.id)}
+                aria-pressed={isRead}
+                title={isRead ? 'Mark as unread' : 'Mark as read'}
+              >
+                {isRead ? '✓' : '○'}
+              </button>
+            )}
+            {onToggleFavorite && (
+              <button
+                type="button"
+                className={`${styles.favoriteBtn} ${isFavorite ? styles.favoriteActive : ''}`}
+                onClick={() => onToggleFavorite(story.id)}
+                aria-pressed={isFavorite}
+              >
+                {isFavorite ? '★' : '☆'}
+              </button>
+            )}
+          </div>
         </div>
         <a
           href={articleHref || hnHref}

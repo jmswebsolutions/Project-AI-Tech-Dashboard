@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Header } from '../components/Header/Header';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { FilterBar } from '../components/home/FilterBar';
+import { FilterPanel } from '../components/FilterPanel/FilterPanel';
 import { ContentArea } from '../components/home/ContentArea';
 import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
+import { useReadHistory } from '../hooks/useReadHistory';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
-import { filterStories } from '../components/home/storyFilters';
+import { filterStories, type TimeFilter } from '../components/home/storyFilters';
 import type { StoryCategory } from '../api/newsApi';
 import styles from './Home.module.css';
 
@@ -16,11 +18,22 @@ export function Home() {
   const [category, setCategory] = useState<StoryCategory>('top');
   const { stories, loading, error, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } = useNews(category);
   const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
+  const { markAsRead, markAsUnread, isRead } = useReadHistory();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
+  const [timeFilter, setTimeFilter] = useState<TimeFilter>('all');
+  const [minScore, setMinScore] = useState(0);
   const { sentinelRef } = useInfiniteScroll(hasNextPage, fetchNextPage, isFetchingNextPage);
 
-  const filtered = filterStories(stories, view, search, isFavorite);
+  const handleToggleRead = (storyId: number) => {
+    if (isRead(storyId)) {
+      markAsUnread(storyId);
+    } else {
+      markAsRead(storyId);
+    }
+  };
+
+  const filtered = filterStories(stories, view, search, isFavorite, timeFilter, minScore);
   const showToolbar = !error;
 
   return (
@@ -57,6 +70,12 @@ export function Home() {
               onViewChange={setView}
               favoriteCount={favoriteCount}
             />
+            <FilterPanel
+              timeFilter={timeFilter}
+              minScore={minScore}
+              onTimeFilterChange={setTimeFilter}
+              onMinScoreChange={setMinScore}
+            />
           </div>
         </div>
       )}
@@ -73,6 +92,8 @@ export function Home() {
             search={search}
             isFavorite={isFavorite}
             onToggleFavorite={toggleFavorite}
+            isRead={isRead}
+            onToggleRead={handleToggleRead}
             hasNextPage={hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
             sentinelRef={sentinelRef}

@@ -17,6 +17,8 @@ interface ContentAreaProps {
   search: string;
   isFavorite: (id: number) => boolean;
   onToggleFavorite: (id: number) => void;
+  isRead?: (id: number) => boolean;
+  onToggleRead?: (id: number) => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   sentinelRef: React.RefObject<HTMLDivElement | null>;
@@ -33,6 +35,8 @@ export function ContentArea({
   search,
   isFavorite,
   onToggleFavorite,
+  isRead,
+  onToggleRead,
   hasNextPage,
   isFetchingNextPage,
   sentinelRef,
@@ -64,6 +68,8 @@ export function ContentArea({
         stories={filteredStories}
         isFavorite={isFavorite}
         onToggleFavorite={onToggleFavorite}
+        isRead={isRead}
+        onToggleRead={onToggleRead}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
         sentinelRef={sentinelRef}

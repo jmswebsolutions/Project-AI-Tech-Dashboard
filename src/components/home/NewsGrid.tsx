@@ -6,6 +6,8 @@ interface NewsGridProps {
   stories: Story[];
   isFavorite: (id: number) => boolean;
   onToggleFavorite: (id: number) => void;
+  isRead?: (id: number) => boolean;
+  onToggleRead?: (id: number) => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   sentinelRef: React.RefObject<HTMLDivElement | null>;
@@ -15,6 +17,8 @@ export function NewsGrid({
   stories,
   isFavorite,
   onToggleFavorite,
+  isRead,
+  onToggleRead,
   hasNextPage,
   isFetchingNextPage,
   sentinelRef,
@@ -28,6 +32,8 @@ export function NewsGrid({
           index={i}
           isFavorite={isFavorite(story.id)}
           onToggleFavorite={onToggleFavorite}
+          isRead={isRead ? isRead(story.id) : false}
+          onToggleRead={onToggleRead}
         />
       ))}
       {hasNextPage && <div ref={sentinelRef} className={styles.sentinel} />}
