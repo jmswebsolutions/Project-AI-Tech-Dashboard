@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Story } from '../../types/Story';
+import type { Story } from '../../api/newsApi';
 import type { Comment } from '../../api/newsApi';
 import { CommentThread } from '../CommentThread/CommentThread';
 import styles from './NewsCard.module.css';

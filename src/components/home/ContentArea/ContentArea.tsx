@@ -1,10 +1,10 @@
-import type { Story } from '../../types/Story';
-import { LoadingState } from '../LoadingState/LoadingState';
-import { EmptyState } from '../EmptyState/EmptyState';
-import { ErrorState } from '../ErrorState/ErrorState';
-import { NewsGrid } from './NewsGrid';
-import { ResultsInfo } from './ResultsInfo';
-import type { StoryCategory } from '../../api/newsApi';
+import type { Story } from '../../../api/newsApi';
+import { LoadingState } from '../../LoadingState/LoadingState';
+import { EmptyState } from '../../EmptyState/EmptyState';
+import { ErrorState } from '../../ErrorState/ErrorState';
+import { NewsGrid } from '../NewsGrid/NewsGrid';
+import { ResultsInfo } from '../ResultsInfo/ResultsInfo';
+import type { StoryCategory } from '../../../api/newsApi';
 import styles from './ContentArea.module.css';
 
 interface ContentAreaProps {

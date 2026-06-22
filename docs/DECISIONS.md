@@ -243,6 +243,52 @@ This document records the architectural decisions made during the refactoring of
 
 ---
 
+## Project Structure
+
+### Decision: Rename services/ to api/ for clarity
+
+**Status:** Accepted
+
+**Context:**
+- The folder was originally named `services/`
+- This name was ambiguous and didn't clearly indicate its purpose
+- Other developers might confuse it with backend services
+
+**Decision:**
+- Rename `services/` to `api/`
+- This clearly indicates the folder contains API client code
+- Aligns with common naming conventions in React projects
+
+**Consequences:**
+- **Positive:** Clearer folder structure
+- **Positive:** Better developer experience
+- **Negative:** Requires updating all import paths
+
+---
+
+### Decision: Client-side only architecture
+
+**Status:** Accepted
+
+**Context:**
+- Project uses Hacker News public API
+- No custom backend required
+- Want to minimize infrastructure complexity
+
+**Decision:**
+- Build as a client-side only application
+- Use Hacker News public API directly
+- Persist user data in localStorage
+
+**Consequences:**
+- **Positive:** No backend maintenance
+- **Positive:** Simple deployment (static hosting)
+- **Positive:** Lower infrastructure costs
+- **Negative:** Limited by API rate limits
+- **Negative:** No server-side processing
+
+---
+
 ## Summary
 
 The architectural decisions made during this refactoring prioritize:

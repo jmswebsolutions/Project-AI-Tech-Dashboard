@@ -1,4 +1,4 @@
-import type { Story } from '../../types/Story';
+import type { Story } from '../../api/newsApi';
 
 type ViewFilter = 'all' | 'favorites';
 export type TimeFilter = 'all' | '24h' | 'week' | 'month';

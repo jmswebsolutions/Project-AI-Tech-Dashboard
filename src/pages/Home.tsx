@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Header } from '../components/Header/Header';
 import { SearchBar } from '../components/SearchBar/SearchBar';
-import { FilterBar } from '../components/home/FilterBar';
+import { FilterBar } from '../components/home/FilterBar/FilterBar';
 import { FilterPanel } from '../components/FilterPanel/FilterPanel';
-import { ContentArea } from '../components/home/ContentArea';
+import { ContentArea } from '../components/home/ContentArea/ContentArea';
 import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
 import { useReadHistory } from '../hooks/useReadHistory';

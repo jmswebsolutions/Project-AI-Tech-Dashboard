@@ -49,10 +49,10 @@ src/
 
 ## Important Notes
 
-- **API folder renamed**: Previously called `services/`, now `api/` for clarity
-- **No backend**: All client-side, uses Hacker News public API
 - **Performance**: Infinite scroll, React Query caching, code splitting
 - **Accessibility**: Semantic HTML, ARIA attributes, keyboard navigation
+
+Note: See DECISIONS.md for architectural decisions including API folder naming and client-side architecture.
 
 ## Current State
 

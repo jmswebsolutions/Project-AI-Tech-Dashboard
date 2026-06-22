@@ -1,5 +1,5 @@
-import type { StoryCategory } from '../../api/newsApi';
-import { categoryLabels } from '../../constants/categories';
+import type { StoryCategory } from '../../../api/newsApi';
+import { categoryLabels } from '../../../constants/categories';
 import styles from './ResultsInfo.module.css';
 
 interface ResultsInfoProps {

@@ -1,6 +1,6 @@
-import type { StoryCategory } from '../../api/newsApi';
-import { CategorySelector } from './CategorySelector';
-import { FavoritesToggle } from './FavoritesToggle';
+import type { StoryCategory } from '../../../api/newsApi';
+import { CategorySelector } from '../CategorySelector/CategorySelector';
+import { FavoritesToggle } from '../FavoritesToggle/FavoritesToggle';
 import styles from './FilterBar.module.css';
 
 interface FilterBarProps {

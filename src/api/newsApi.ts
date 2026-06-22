@@ -1,6 +1,15 @@
-import type { Story } from "../types/Story";
-
 export type StoryCategory = 'top' | 'new' | 'best' | 'ask' | 'show' | 'job';
+
+export interface Story {
+  id: number;
+  title: string;
+  by: string;
+  score: number;
+  url: string;
+  time: number;
+  descendants?: number;
+  kids?: number[];
+}
 
 export interface Comment {
   id: number;
@@ -63,12 +72,13 @@ export async function getComments(commentIds: number[]): Promise<Comment[]> {
 export async function getCommentTree(commentIds: number[]): Promise<Comment[]> {
   const comments = await getComments(commentIds);
   
-  for (const comment of comments) {
-    if (comment.kids && comment.kids.length > 0) {
-      const childComments = await getCommentTree(comment.kids);
-      comments.push(...childComments);
-    }
-  }
+  const childCommentPromises = comments
+    .filter(comment => comment.kids && comment.kids.length > 0)
+    .map(comment => getCommentTree(comment.kids!));
+  
+  const allChildComments = await Promise.all(childCommentPromises);
+  
+  comments.push(...allChildComments.flat());
   
   return comments;
 }
