@@ -23,6 +23,7 @@ interface ContentAreaProps {
   isFetchingNextPage: boolean;
   sentinelRef: React.RefObject<HTMLDivElement | null>;
   onRetry: () => void;
+  focusedIndex?: number;
 }
 
 export function ContentArea({
@@ -41,6 +42,7 @@ export function ContentArea({
   isFetchingNextPage,
   sentinelRef,
   onRetry,
+  focusedIndex = -1,
 }: ContentAreaProps) {
   const isLoadingContent = isLoading && stories.length === 0;
 
@@ -73,6 +75,7 @@ export function ContentArea({
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
         sentinelRef={sentinelRef}
+        focusedIndex={focusedIndex}
       />
     </div>
   );

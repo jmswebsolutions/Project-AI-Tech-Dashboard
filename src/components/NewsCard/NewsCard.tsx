@@ -11,9 +11,10 @@ interface NewsCardProps {
   onToggleFavorite?: (storyId: number) => void;
   isRead?: boolean;
   onToggleRead?: (storyId: number) => void;
+  isFocused?: boolean;
 }
 
-export function NewsCard({ story, index, isFavorite = false, onToggleFavorite, isRead = false, onToggleRead }: NewsCardProps) {
+export function NewsCard({ story, index, isFavorite = false, onToggleFavorite, isRead = false, onToggleRead, isFocused = false }: NewsCardProps) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
@@ -75,7 +76,7 @@ export function NewsCard({ story, index, isFavorite = false, onToggleFavorite, i
   };
 
   return (
-    <article className={`${styles.card} ${isRead ? styles.read : ''}`}>
+    <article className={`${styles.card} ${isRead ? styles.read : ''} ${isFocused ? styles.focused : ''}`}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <span className={styles.rank}>{String(index + 1).padStart(2, '0')}</span>

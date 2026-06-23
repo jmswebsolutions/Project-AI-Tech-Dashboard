@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Header } from '../components/Header/Header';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import { FilterBar } from '../components/home/FilterBar/FilterBar';
@@ -8,6 +8,8 @@ import { useNews } from '../hooks/useNews';
 import { useFavorites } from '../hooks/useFavorites';
 import { useReadHistory } from '../hooks/useReadHistory';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
+import { useTheme } from '../hooks/useTheme';
 import { filterStories, type TimeFilter } from '../components/home/storyFilters';
 import type { StoryCategory } from '../api/newsApi';
 import styles from './Home.module.css';
@@ -19,11 +21,40 @@ export function Home() {
   const { stories, loading, error, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } = useNews(category);
   const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
   const { markAsRead, markAsUnread, isRead } = useReadHistory();
+  const { toggleTheme } = useTheme();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('all');
   const [minScore, setMinScore] = useState(0);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const { sentinelRef } = useInfiniteScroll(hasNextPage, fetchNextPage, isFetchingNextPage);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const filtered = filterStories(stories, view, search, isFavorite, timeFilter, minScore);
+  const showToolbar = !error;
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onNavigateDown: () => {
+      if (filtered.length > 0) {
+        setFocusedIndex(prev => (prev + 1) % filtered.length);
+      }
+    },
+    onNavigateUp: () => {
+      if (filtered.length > 0) {
+        setFocusedIndex(prev => prev <= 0 ? filtered.length - 1 : prev - 1);
+      }
+    },
+    onToggleFavorite: () => {
+      if (focusedIndex >= 0 && focusedIndex < filtered.length) {
+        toggleFavorite(filtered[focusedIndex].id);
+      }
+    },
+    onToggleTheme: toggleTheme,
+    onFocusSearch: () => {
+      searchRef.current?.focus();
+    },
+  });
 
   const handleToggleRead = (storyId: number) => {
     if (isRead(storyId)) {
@@ -32,9 +63,6 @@ export function Home() {
       markAsRead(storyId);
     }
   };
-
-  const filtered = filterStories(stories, view, search, isFavorite, timeFilter, minScore);
-  const showToolbar = !error;
 
   return (
     <div className={styles.root}>
@@ -55,7 +83,7 @@ export function Home() {
                 Top stories from Hacker News — sorted, discussed, and ranked by the community
               </p>
             </div>
-            <SearchBar value={search} onChange={setSearch} placeholder="Search stories..." />
+            <SearchBar ref={searchRef} value={search} onChange={setSearch} placeholder="Search stories... (Press / to focus)" />
           </div>
         </div>
       </section>
@@ -98,6 +126,7 @@ export function Home() {
             isFetchingNextPage={isFetchingNextPage}
             sentinelRef={sentinelRef}
             onRetry={() => refetch()}
+            focusedIndex={focusedIndex}
           />
         </div>
       </main>

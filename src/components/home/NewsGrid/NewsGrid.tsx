@@ -11,6 +11,7 @@ interface NewsGridProps {
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   sentinelRef: React.RefObject<HTMLDivElement | null>;
+  focusedIndex?: number;
 }
 
 export function NewsGrid({
@@ -22,6 +23,7 @@ export function NewsGrid({
   hasNextPage,
   isFetchingNextPage,
   sentinelRef,
+  focusedIndex = -1,
 }: NewsGridProps) {
   return (
     <div className={styles.grid}>
@@ -34,6 +36,7 @@ export function NewsGrid({
           onToggleFavorite={onToggleFavorite}
           isRead={isRead ? isRead(story.id) : false}
           onToggleRead={onToggleRead}
+          isFocused={i === focusedIndex}
         />
       ))}
       {hasNextPage && <div ref={sentinelRef} className={styles.sentinel} />}
