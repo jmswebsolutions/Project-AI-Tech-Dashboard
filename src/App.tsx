@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
+import { useTheme } from './hooks/useTheme';
 import './styles/index.css';
 
 const queryClient = new QueryClient({
@@ -13,6 +14,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  useTheme(); // Initialize theme to apply CSS variables globally
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>

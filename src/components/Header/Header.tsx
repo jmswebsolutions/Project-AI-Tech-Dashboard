@@ -1,4 +1,5 @@
 import styles from './Header.module.css';
+import { ThemeSelector } from '../ThemeSelector';
 import { useTheme } from '../../hooks/useTheme';
 
 interface HeaderProps {
@@ -8,7 +9,7 @@ interface HeaderProps {
 }
 
 export function Header({ title = 'AI & Tech Dashboard', subtitle, favoriteCount = 0 }: HeaderProps) {
-  const { theme, toggleTheme } = useTheme();
+  const { effectiveMode, toggleMode } = useTheme();
 
   return (
     <header className={styles.header}>
@@ -29,13 +30,13 @@ export function Header({ title = 'AI & Tech Dashboard', subtitle, favoriteCount 
               </div>
             )}
             <button
-              type="button"
               className={styles.themeToggle}
-              onClick={toggleTheme}
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              onClick={toggleMode}
+              title={`Switch to ${effectiveMode === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {effectiveMode === 'dark' ? '☀️' : '🌙'}
             </button>
+            <ThemeSelector />
             <div className={styles.badge}>Live</div>
           </div>
         </div>

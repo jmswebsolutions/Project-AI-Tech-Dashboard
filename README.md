@@ -116,6 +116,15 @@ const { data: stories, isLoading, error, refetch } = useQuery({
 - Theme persistence in localStorage
 - Smooth theme transitions
 
+### 🎨 Customizable Themes (v7.0)
+- **5 color presets**: Midnight, Ocean, Forest, Sunset, Lavender (each with dark & light variants)
+- **3 mode options**: Dark, Light, System (follows OS preference)
+- Quick toggle button in header (🌙/☀️) for instant mode switching
+- Full theme selector with mode and color preset options
+- System preference detection and automatic adjustment
+- Theme persistence in localStorage
+- Global theme application across entire application
+
 ### �🔥 Real-Time Stories
 - Automatically fetches the top 30 stories from Hacker News
 - Updates every 5 minutes (configurable)
@@ -370,7 +379,7 @@ The project automatically fetches:
 
 ## 🚀 Future Improvements
 
-- [ ] Unit tests with Vitest
+- [x] Unit tests with Vitest
 - [ ] E2E tests with Playwright
 - [x] PWA features (offline, install)
 - [x] Dark/Light mode toggle
@@ -378,7 +387,7 @@ The project automatically fetches:
 - [ ] Filter categories (jobs, polls, etc)
 - [ ] Analytics (Sentry, Mixpanel)
 - [x] Infinite scroll
-- [ ] Customizable theme
+- [x] Customizable theme
 
 ## 📜 License
 

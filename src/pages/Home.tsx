@@ -9,7 +9,6 @@ import { useFavorites } from '../hooks/useFavorites';
 import { useReadHistory } from '../hooks/useReadHistory';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
-import { useTheme } from '../hooks/useTheme';
 import { filterStories, type TimeFilter } from '../components/home/storyFilters';
 import type { StoryCategory } from '../api/newsApi';
 import styles from './Home.module.css';
@@ -21,7 +20,6 @@ export function Home() {
   const { stories, loading, error, refetch, hasNextPage, fetchNextPage, isFetchingNextPage } = useNews(category);
   const { toggleFavorite, isFavorite, favoriteCount } = useFavorites();
   const { markAsRead, markAsUnread, isRead } = useReadHistory();
-  const { toggleTheme } = useTheme();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('all');
@@ -50,7 +48,6 @@ export function Home() {
         toggleFavorite(filtered[focusedIndex].id);
       }
     },
-    onToggleTheme: toggleTheme,
     onFocusSearch: () => {
       searchRef.current?.focus();
     },

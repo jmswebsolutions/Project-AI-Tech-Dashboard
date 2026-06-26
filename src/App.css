@@ -4,27 +4,6 @@
 html { scroll-behavior: smooth; }
 
 :root {
-  --bg:        #0D0D0F;
-  --surface-1: #131316;
-  --surface-2: #1A1A1F;
-  --surface-3: #222228;
-  --line:      rgba(255,255,255,0.07);
-  --line-hi:   rgba(255,255,255,0.13);
-
-  --txt-1: #EEEDF0;
-  --txt-2: #8E8C9A;
-  --txt-3: #5A5869;
-
-  --amber:     #F59E0B;
-  --amber-dim: rgba(245,158,11,0.10);
-  --amber-bdr: rgba(245,158,11,0.22);
-
-  --green:     #10B981;
-  --green-dim: rgba(16,185,129,0.10);
-
-  --violet:    #8B5CF6;
-  --violet-dim:rgba(139,92,246,0.10);
-
   --r: 10px;
   --r-sm: 7px;
   --ease: cubic-bezier(.4,0,.2,1);
