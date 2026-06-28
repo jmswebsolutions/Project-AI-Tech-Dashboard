@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import mixpanel from 'mixpanel-browser';
 
 const FAVORITES_STORAGE_KEY = 'ai_tech_dashboard_favorites';
 
@@ -31,11 +32,25 @@ export function useFavorites() {
   const toggleFavorite = (storyId: number) => {
     setFavorites((prev) => {
       const newFavorites = new Set(prev);
-      if (newFavorites.has(storyId)) {
-        newFavorites.delete(storyId);
-      } else {
+      const isAdding = !newFavorites.has(storyId);
+      
+      if (isAdding) {
         newFavorites.add(storyId);
+      } else {
+        newFavorites.delete(storyId);
       }
+
+      // Track analytics event
+      try {
+        mixpanel.track('Story Favorited', {
+          storyId,
+          action: isAdding ? 'added' : 'removed',
+          totalFavorites: newFavorites.size,
+        });
+      } catch (error) {
+        // Silently fail if Mixpanel is not configured
+      }
+
       return newFavorites;
     });
   };

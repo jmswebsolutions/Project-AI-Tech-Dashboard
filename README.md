@@ -384,8 +384,8 @@ The project automatically fetches:
 - [x] PWA features (offline, install)
 - [x] Dark/Light mode toggle
 - [x] Favorites/bookmarks
-- [ ] Filter categories (jobs, polls, etc)
-- [ ] Analytics (Sentry, Mixpanel)
+- [x] Filter categories (jobs, polls, etc)
+- [x] Analytics (Sentry, Mixpanel)
 - [x] Infinite scroll
 - [x] Customizable theme
 

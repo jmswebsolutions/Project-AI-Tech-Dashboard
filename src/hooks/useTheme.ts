@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { THEME_PRESETS, DEFAULT_THEME, DEFAULT_MODE, type ThemeMode, type ThemeColors } from '../constants/themes';
+import mixpanel from 'mixpanel-browser';
 
 const THEME_STORAGE_KEY = 'ai-tech-dashboard-theme';
 const MODE_STORAGE_KEY = 'ai-tech-dashboard-mode';
@@ -108,17 +109,48 @@ export function useTheme() {
   const setTheme = useCallback((themeId: string) => {
     setThemeId(themeId);
     localStorage.setItem(THEME_STORAGE_KEY, themeId);
-  }, []);
+
+    // Track analytics event
+    try {
+      mixpanel.track('Theme Changed', {
+        themeId,
+        mode,
+      });
+    } catch (error) {
+      // Silently fail if Mixpanel is not configured
+    }
+  }, [mode]);
 
   const setMode = useCallback((newMode: ThemeMode) => {
     setModeState(newMode);
     localStorage.setItem(MODE_STORAGE_KEY, newMode);
-  }, []);
+
+    // Track analytics event
+    try {
+      mixpanel.track('Theme Mode Changed', {
+        from: mode,
+        to: newMode,
+      });
+    } catch (error) {
+      // Silently fail if Mixpanel is not configured
+    }
+  }, [mode]);
 
   const toggleMode = useCallback(() => {
     setModeState(prev => {
       const newMode: ThemeMode = prev === 'dark' ? 'light' : 'dark';
       localStorage.setItem(MODE_STORAGE_KEY, newMode);
+
+      // Track analytics event
+      try {
+        mixpanel.track('Theme Mode Toggled', {
+          from: prev,
+          to: newMode,
+        });
+      } catch (error) {
+        // Silently fail if Mixpanel is not configured
+      }
+
       return newMode;
     });
   }, []);

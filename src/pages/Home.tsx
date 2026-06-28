@@ -11,6 +11,7 @@ import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { filterStories, type TimeFilter } from '../components/home/storyFilters';
 import type { StoryCategory } from '../api/newsApi';
+import mixpanel from 'mixpanel-browser';
 import styles from './Home.module.css';
 
 type ViewFilter = 'all' | 'favorites';
@@ -22,6 +23,45 @@ export function Home() {
   const { markAsRead, markAsUnread, isRead } = useReadHistory();
   const [search, setSearch] = useState('');
   const [view, setView] = useState<ViewFilter>('all');
+
+  // Track search analytics
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    try {
+      mixpanel.track('Search Performed', {
+        query: value,
+        resultsCount: filtered.length,
+      });
+    } catch (error) {
+      // Silently fail if Mixpanel is not configured
+    }
+  };
+
+  // Track category change
+  const handleCategoryChange = (newCategory: StoryCategory) => {
+    setCategory(newCategory);
+    try {
+      mixpanel.track('Category Changed', {
+        from: category,
+        to: newCategory,
+      });
+    } catch (error) {
+      // Silently fail if Mixpanel is not configured
+    }
+  };
+
+  // Track view filter change
+  const handleViewChange = (newView: ViewFilter) => {
+    setView(newView);
+    try {
+      mixpanel.track('View Filter Changed', {
+        from: view,
+        to: newView,
+      });
+    } catch (error) {
+      // Silently fail if Mixpanel is not configured
+    }
+  };
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('all');
   const [minScore, setMinScore] = useState(0);
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
@@ -80,7 +120,7 @@ export function Home() {
                 Top stories from Hacker News — sorted, discussed, and ranked by the community
               </p>
             </div>
-            <SearchBar ref={searchRef} value={search} onChange={setSearch} placeholder="Search stories... (Press / to focus)" />
+            <SearchBar ref={searchRef} value={search} onChange={handleSearchChange} placeholder="Search stories... (Press / to focus)" />
           </div>
         </div>
       </section>
@@ -91,8 +131,8 @@ export function Home() {
             <FilterBar
               category={category}
               view={view}
-              onCategoryChange={setCategory}
-              onViewChange={setView}
+              onCategoryChange={handleCategoryChange}
+              onViewChange={handleViewChange}
               favoriteCount={favoriteCount}
             />
             <FilterPanel
